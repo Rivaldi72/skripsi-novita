@@ -29,7 +29,7 @@
                     <div class="card bg-authentication rounded-0 mb-0">
                         <div class="row m-0">
                             <div class="col-lg-6 d-lg-block d-none text-center align-self-center px-0 py-0">
-                                <img class="w-100" src="{{ url('app-assets/images/login/ilustrasi_login.jpg') }}" alt="branding logo">
+                                <img class="w-100" src="{{ url('login.jpg') }}" alt="branding logo">
                             </div>
                             <div class="col-lg-6 col-12 p-0 my-auto">
                                 <div class="card rounded-0 mb-0 px-2">
@@ -54,19 +54,19 @@
                                             <form action="{{ route('registerLogic') }}" method="POST">
                                                 {{ csrf_field()}}
                                                 <fieldset class="form-label-group form-group position-relative has-icon-left">
+                                                    <input type="text" class="form-control" id="nama" name="nama" placeholder="Nama Pengguna" required>
+                                                    <div class="form-control-position">
+                                                        <i class="feather icon-user"></i>
+                                                    </div>
+                                                    <label for="nama">Nama</label>
+                                                </fieldset>
+
+                                                <fieldset class="form-label-group form-group position-relative has-icon-left">
                                                     <input type="text" class="form-control" id="username" name="username" placeholder="Nama Pengguna" required>
                                                     <div class="form-control-position">
                                                         <i class="feather icon-user"></i>
                                                     </div>
-                                                    <label for="username">Nama Pengguna</label>
-                                                </fieldset>
-
-                                                <fieldset class="form-label-group position-relative has-icon-left">
-                                                    <input type="email" class="form-control" id="email" name="email" placeholder="Email" required>
-                                                    <div class="form-control-position">
-                                                        <i class="feather icon-mail"></i>
-                                                    </div>
-                                                    <label for="email">Email</label>
+                                                    <label for="username">Username</label>
                                                 </fieldset>
 
                                                 <fieldset class="form-label-group position-relative has-icon-left">
@@ -100,8 +100,8 @@
                                                         </fieldset>
                                                     </div>
                                                     <div class="text-right"><a href="auth-forgot-password.html" class="card-link">Forgot Password?</a></div>
-                                                </div>
-                                                <a href="auth-register.html" class="btn btn-outline-primary float-left btn-inline">Register</a> --}}
+                                                </div>--}}
+                                                <a href="{{ route('login') }}" class="btn btn-outline-primary float-left btn-inline">Masuk</a> 
                                                 <button type="submit" class="btn btn-primary float-right btn-inline">Daftar</button>
                                             </form>
                                         </div>

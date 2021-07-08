@@ -84,8 +84,8 @@
                                                         </fieldset>
                                                     </div>
                                                     <div class="text-right"><a href="auth-forgot-password.html" class="card-link">Forgot Password?</a></div>
-                                                </div>
-                                                <a href="auth-register.html" class="btn btn-outline-primary float-left btn-inline">Register</a> --}}
+                                                </div> --}}
+                                                <a href="{{ route('register') }}" class="btn btn-outline-primary float-left btn-inline">Daftar</a>
                                                 <button type="submit" class="btn btn-primary float-right btn-inline">Masuk</button>
                                             </form>
                                         </div>
