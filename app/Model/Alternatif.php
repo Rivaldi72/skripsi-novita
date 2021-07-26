@@ -8,6 +8,8 @@ class Alternatif extends Model
 {
     protected $table = 'data_alternatif';
 
+    protected $primaryKey = 'id_data_alternatif';
+
     protected $fillable = [
         'id_data_alternatif',
         'id_user',

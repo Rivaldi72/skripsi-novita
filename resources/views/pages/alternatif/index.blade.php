@@ -8,8 +8,11 @@
 
 @endsection
 
-@section('append_script')
 
+@section('append_script')
+    <script>
+        $('.zero-configuration').DataTable();
+    </script>
 @endsection
 
 @section('title')
@@ -70,7 +73,7 @@
                                                 <td> {{ $pelamar->nama }} </td>
                                                 <td> {{ $pelamar->created_at->format('d F Y') }} </td>
                                                 <td>
-                                                    <a href="{{ route('alternatif-detail') }}" class="btn btn-icon btn-warning btn-relief-warning mr-1 mb-1 waves-effect waves-light editBtn">
+                                                    <a href="{{ route('alternatif-detail', $pelamar->id_user)}}" class="btn btn-icon btn-warning btn-relief-warning mr-1 mb-1 waves-effect waves-light editBtn">
                                                         <i class="feather icon-eye"></i>
                                                     </a>
                                                 </td>

@@ -3,10 +3,13 @@
 namespace App\Model;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Model\Biodata;
 
 class Biodata extends Model
 {
     protected $table = 'biodata';
+
+    protected $primaryKey = 'id_biodata';
 
     protected $fillable = [
         'id_biodata',
@@ -20,16 +23,26 @@ class Biodata extends Model
         'email',
         'no_hp',
         'pendidikan_terakhir',
-        'pengalaman_kerja',
+        // 'pengalaman_kerja',
         'jurusan_pendidikan',
         'ipk',
-        'wawancara',
-        'psikotest',
-        'kemampuan bahasa asing',
+        // 'wawancara',
+        // 'psikotest',
+        // 'kemampuan_bahasa_asing',
         'ktp',
-        'pas poto',
+        'pas_poto',
         'ijazah',
-        'transkip_nilai',
+        'transkrip_nilai',
         'portofolio'
     ];
+
+    public function pengalamanKerja()
+    {
+        return $this->hasMany('App\Model\PengalamanKerja', 'id_user', 'id_user');
+    }
+
+    public function kemampuanBahasaAsing()
+    {
+        return $this->hasMany('App\Model\KemampuanBahasaAsing', 'id_user', 'id_user');
+    }
 }

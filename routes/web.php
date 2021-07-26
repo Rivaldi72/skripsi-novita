@@ -32,6 +32,7 @@ Route::group(['middleware' => ['auth', 'role:admin,pelamar']], function () {
 
 Route::group(['middleware' => ['auth', 'role:pelamar']], function () {
     Route::get('/alternatif-biodata', 'AlternatifController@biodata')->name('alternatif-biodata');
+    Route::post('/alternatif-biodata/store', 'AlternatifController@biodataStore')->name('alternatif-biodata-store');
 });
 
 Route::group(['middleware' => ['auth', 'role:direktur,admin']], function () {
@@ -40,10 +41,11 @@ Route::group(['middleware' => ['auth', 'role:direktur,admin']], function () {
 
 Route::group(['middleware' => ['auth', 'role:admin']], function () {
     Route::get('/alternatif', 'AlternatifController@index')->name('alternatif-index');
-    Route::get('/alternatif-detail', 'AlternatifController@detail')->name('alternatif-detail');
+    Route::get('/alternatif-detail/{id}', 'AlternatifController@detail')->name('alternatif-detail');
     Route::get('/kriteria', 'KriteriaController@index')->name('kriteria-index');
     Route::get('/detail-kriteria', 'KriteriaController@detail')->name('kriteria-detail');
     Route::get('/seleksi', 'SeleksiController@index')->name('seleksi-index');
+    Route::get('/seleksi/input-nilai/{id}', 'SeleksiController@inputNilai')->name('seleksi-input-nilai');
 });
 
 Route::get('contoh-ui', function () {

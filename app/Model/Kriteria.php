@@ -8,6 +8,8 @@ class Kriteria extends Model
 {
     protected $table = 'kriteria';
 
+    protected $primaryKey = 'id_kriteria';
+
     protected $fillable = [
         'id_kriteria',
         'kriteria',

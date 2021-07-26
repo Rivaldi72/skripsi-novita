@@ -11,8 +11,13 @@ class SeleksiController extends Controller
         return view('pages.seleksi.index');
     }
 
-    public function tambah()
+    public function inputNilai($id)
     {
-        // return view();
+        return view('pages.seleksi.input-nilai');
+    }
+
+    public function simpanData(Request $request)
+    {
+        return redirect()->route('seleksi-index');
     }
 }

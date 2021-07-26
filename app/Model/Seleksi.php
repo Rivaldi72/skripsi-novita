@@ -8,6 +8,8 @@ class Seleksi extends Model
 {
     protected $table = 'perhitungan_dan_seleksi_nilai';
 
+    protected $primaryKey = 'id_seleksi';
+
     protected $fillable = [
         'id_user',
         'id_kriteria',
