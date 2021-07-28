@@ -274,7 +274,9 @@ $(document).ready(function () {
   // users birthdate date
   if ($(".birthdate-picker").length > 0) {
     $('.birthdate-picker').pickadate({
-      format: 'mmmm, d, yyyy'
+      format: 'mmmm, d, yyyy',
+      selectYears: true,
+      selectMonths: true
     });
   }
   // Input, Select, Textarea validations except submit button validation initialization

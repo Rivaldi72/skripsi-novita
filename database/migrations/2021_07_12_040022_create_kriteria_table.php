@@ -16,7 +16,7 @@ class CreateKriteriaTable extends Migration
         Schema::create('kriteria', function (Blueprint $table) {
             $table->bigIncrements('id_kriteria');
             $table->string('kriteria');
-            $table->decimal('bobot')->nullable();
+            $table->decimal('bobot', 6, 4)->nullable();
             $table->string('jenis');
             $table->integer('kepentingan');
             $table->timestamps();

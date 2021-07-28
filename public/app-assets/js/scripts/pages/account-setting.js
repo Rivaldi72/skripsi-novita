@@ -25,6 +25,8 @@ $(document).ready(function () {
   });
   // birthdate date
   $('.birthdate-picker').pickadate({
-    format: 'mmmm, d, yyyy'
+    format: 'mmmm, d, yyyy',
+    selectYears: true,
+    selectMonths: true
   });
 });

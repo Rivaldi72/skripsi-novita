@@ -10,6 +10,7 @@
 
 @section('append_script')
 
+    <script src="{{ URL::asset('app-assets/vendors/js/pickers/pickadate/picker.js') }}"></script>
     <script src="{{ URL::asset('app-assets/vendors/js/pickers/pickadate/picker.date.js') }}"></script>
     <script src="{{ URL::asset('app-assets/vendors/js/pickers/pickadate/picker.time.js') }}"></script>
     <script src="{{ URL::asset('app-assets/vendors/js/pickers/pickadate/legacy.js') }}"></script>
@@ -72,7 +73,9 @@
                                     <div class="col-12">
                                         <fieldset class="form-group">
                                             <label for="basicInput">Tanggal Lahir</label>
-                                            <input type='text' name="tanggal_lahir" class="form-control pickadate" id="" placeholder="Data Of Birth" />
+                                            <form action="">
+                                                <input type='text' name="tanggal_lahir" class="form-control pickadate" id="" placeholder="Data Of Birth" />
+                                            </form>
                                         </fieldset>
                                     </div>
                                     <div class="col-12">

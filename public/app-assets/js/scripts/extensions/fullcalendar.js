@@ -189,6 +189,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
   // date picker
   $(".pickadate").pickadate({
-    format: 'yyyy-mm-dd'
+    format: 'yyyy-mm-dd',
+    selectYears: true,
+    selectMonths: true
   });
 });

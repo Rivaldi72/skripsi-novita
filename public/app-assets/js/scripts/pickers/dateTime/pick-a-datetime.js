@@ -11,7 +11,10 @@
 
     /*******    Pick-a-date Picker  *****/
     // Basic date
-    $('.pickadate').pickadate();
+    $('.pickadate').pickadate({
+        selectYears: true,
+        selectMonths: true
+    });
 
     // Format Date Picker
     $('.format-picker').pickadate({
