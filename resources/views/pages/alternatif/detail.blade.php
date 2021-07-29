@@ -46,55 +46,55 @@
                                 <div class="col-6">
                                     <fieldset class="form-group">
                                         <label for="basicInput">Nama</label>
-                                        <input type="text" class="form-control" id="" placeholder="{{ $biodata->nama }}" disabled>
+                                        <input type="text" class="form-control" id="" placeholder="{{ $biodata->nama ?? "Pelamar belum mengisi biodata" }}" disabled>
                                     </fieldset>
                                 </div>
                                 <div class="col-6">
                                     <fieldset class="form-group">
                                         <label for="basicInput">Email</label>
-                                        <input type="text" class="form-control" id="" placeholder="{{ $biodata->email }}" disabled>
+                                        <input type="text" class="form-control" id="" placeholder="{{ $biodata->email ?? "Pelamar belum mengisi biodata" }}" disabled>
                                     </fieldset>
                                 </div>
                                 <div class="col-6">
                                     <fieldset class="form-group">
                                         <label for="basicInput">No.Handphone</label>
-                                        <input type="text" class="form-control" id="" placeholder="{{ $biodata->no_hp }}" disabled>
+                                        <input type="text" class="form-control" id="" placeholder="{{ $biodata->no_hp ?? "Pelamar belum mengisi biodata" }}" disabled>
                                     </fieldset>
                                 </div>
                                 <div class="col-6">
                                     <fieldset class="form-group">
                                         <label for="basicInput">Tanggal Lahir</label>
-                                        <input type="text" class="form-control" id="" placeholder="{{ $biodata->tanggal_lahir }}" disabled>
+                                        <input type="text" class="form-control" id="" placeholder="{{ $biodata->tanggal_lahir ?? "Pelamar belum mengisi biodata" }}" disabled>
                                     </fieldset>
                                 </div>
                                 <div class="col-6">
                                     <fieldset class="form-group">
                                         <label for="basicInput">Tempat Lahir</label>
-                                        <input type="text" class="form-control" id="" placeholder="{{ $biodata->tempat_lahir }}" disabled>
+                                        <input type="text" class="form-control" id="" placeholder="{{ $biodata->tempat_lahir ?? "Pelamar belum mengisi biodata" }}" disabled>
                                     </fieldset>
                                 </div>
                                 <div class="col-6">
                                     <fieldset class="form-group">
                                         <label for="basicInput">Jenis Kelamin</label>
-                                        <input type="text" class="form-control" id="" placeholder="{{ $biodata->jenis_kelamin }}" disabled>
+                                        <input type="text" class="form-control" id="" placeholder="{{ $biodata->jenis_kelamin ?? "Pelamar belum mengisi biodata" }}" disabled>
                                     </fieldset>
                                 </div>
                                 <div class="col-6">
                                     <fieldset class="form-group">
                                         <label for="basicInput">Status</label>
-                                        <input type="text" class="form-control" id="" placeholder="{{ $biodata->status }}" disabled>
+                                        <input type="text" class="form-control" id="" placeholder="{{ $biodata->status ?? "Pelamar belum mengisi biodata" }}" disabled>
                                     </fieldset>
                                 </div>
                                 <div class="col-6">
                                     <fieldset class="form-group">
                                         <label for="basicInput">Alamat</label>
-                                        <input type="text" class="form-control" id="" placeholder="{{ $biodata->alamat }}" disabled>
+                                        <input type="text" class="form-control" id="" placeholder="{{ $biodata->alamat ?? "Pelamar belum mengisi biodata" }}" disabled>
                                     </fieldset>
                                 </div>
                                 <div class="col-12">
                                     <fieldset class="form-group">
                                         <label for="basicInput">Pendidikan Terakhir</label>
-                                        <input type="text" class="form-control" id="" placeholder="{{ $biodata->pendidikan_terakhir }}" disabled>
+                                        <input type="text" class="form-control" id="" placeholder="{{ $biodata->pendidikan_terakhir ?? "Pelamar belum mengisi biodata" }}" disabled>
                                     </fieldset>
                                 </div>
                                 <div class="col-6">
@@ -111,14 +111,20 @@
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    @foreach ($biodata->pengalamanKerja as $number => $pengalaman_kerja)
+                                                    @if ($biodata == null)
                                                         <tr>
-                                                            <td> {{ $number + 1 }} </td>
-                                                            <td> {{ $pengalaman_kerja->perusahaan }} </td>
-                                                            <td> {{ $pengalaman_kerja->jabatan }} </td>
-                                                            <td> {{ $pengalaman_kerja->lama_kerja < 12 ? $pengalaman_kerja->lama_kerja : $pengalaman_kerja->lama_kerja / 12 }} {{ $pengalaman_kerja->lama_kerja < 12 ? 'Bulan' : 'Tahun' }}</td>
+                                                            <td colspan="4">Data Kosong</td>
                                                         </tr>
-                                                    @endforeach
+                                                    @else
+                                                        @foreach ($biodata->pengalamanKerja as $number => $pengalaman_kerja)
+                                                            <tr>
+                                                                <td> {{ $number + 1 }} </td>
+                                                                <td> {{ $pengalaman_kerja->perusahaan }} </td>
+                                                                <td> {{ $pengalaman_kerja->jabatan }} </td>
+                                                                <td> {{ $pengalaman_kerja->lama_kerja < 12 ? $pengalaman_kerja->lama_kerja : $pengalaman_kerja->lama_kerja / 12 }} {{ $pengalaman_kerja->lama_kerja < 12 ? 'Bulan' : 'Tahun' }}</td>
+                                                            </tr>
+                                                        @endforeach 
+                                                    @endif
                                                 </tbody>
                                             </table>
                                         </div>
@@ -139,15 +145,21 @@
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    @foreach ($biodata->kemampuanBahasaAsing as $number => $kemampuan_bahasa_asing)
+                                                    @if ($biodata == null)
                                                         <tr>
-                                                            <td> {{ $number + 1 }} </td>
-                                                            <td> {{ $kemampuan_bahasa_asing->bahasa }} </td>
-                                                            <td> {{ $kemampuan_bahasa_asing->read == true ? 'Lancar' : 'Tidak Lancar' }} </td>
-                                                            <td> {{ $kemampuan_bahasa_asing->write == true ? 'Lancar' : 'Tidak Lancar' }} </td>
-                                                            <td> {{ $kemampuan_bahasa_asing->speak == true ? 'Lancar' : 'Tidak Lancar' }} </td>
+                                                            <td colspan="5">Data Kosong</td>
                                                         </tr>
-                                                    @endforeach
+                                                    @else
+                                                        @foreach ($biodata->kemampuanBahasaAsing as $number => $kemampuan_bahasa_asing)
+                                                            <tr>
+                                                                <td> {{ $number + 1 }} </td>
+                                                                <td> {{ $kemampuan_bahasa_asing->bahasa }} </td>
+                                                                <td> {{ $kemampuan_bahasa_asing->read == true ? 'Lancar' : 'Tidak Lancar' }} </td>
+                                                                <td> {{ $kemampuan_bahasa_asing->write == true ? 'Lancar' : 'Tidak Lancar' }} </td>
+                                                                <td> {{ $kemampuan_bahasa_asing->speak == true ? 'Lancar' : 'Tidak Lancar' }} </td>
+                                                            </tr>
+                                                        @endforeach
+                                                    @endif
                                                 </tbody>
                                             </table>
                                         </div>
@@ -156,34 +168,34 @@
                                 <div class="col-6">
                                     <fieldset class="form-group">
                                         <label for="basicInput">Jurusan Pendidikan</label>
-                                        <input type="text" class="form-control" id="" placeholder="{{ $biodata->jurusan_pendidikan }}" disabled>
+                                        <input type="text" class="form-control" id="" placeholder="{{ $biodata->jurusan_pendidikan ?? "Pelamar belum mengisi biodata" }}" disabled>
                                     </fieldset>
                                 </div>
                                 <div class="col-6">
                                     <fieldset class="form-group">
                                         <label for="basicInput">IPK</label>
-                                        <input type="text" class="form-control" id="" placeholder="{{ $biodata->ipk }}" disabled>
+                                        <input type="text" class="form-control" id="" placeholder="{{ $biodata->ipk ?? "Pelamar belum mengisi biodata" }}" disabled>
                                     </fieldset>
                                 </div>
                                 <div class="col-2">
                                     <label for="basicInputFile">KTP</label>
-                                    <img src="{{ url('user-image') }}/{{ $biodata->ktp }}" class="img-fluid mb-1 rounded-sm" data-toggle="modal" data-target="#ktp-modal" alt="" style="width: 100%; height: 70%; object-fit: cover; cursor: pointer">
+                                    <img src="{{ url('user-image') }}/{{ $biodata->ktp ?? "no-image.png" }}" class="img-fluid mb-1 rounded-sm" data-toggle="modal" data-target="#ktp-modal" alt="" style="width: 100%; height: 70%; object-fit: cover; cursor: pointer">
                                 </div>
                                 <div class="col-2">
                                     <label for="basicInputFile">Pas Foto</label>
-                                    <img src="{{ url('user-image') }}/{{ $biodata->pas_poto }}" class="img-fluid mb-1 rounded-sm" data-toggle="modal" data-target="#pas-foto-modal" alt="" style="width: 100%; height: 70%; object-fit: cover; cursor: pointer">
+                                    <img src="{{ url('user-image') }}/{{ $biodata->pas_poto ?? "no-image.png" }}" class="img-fluid mb-1 rounded-sm" data-toggle="modal" data-target="#pas-foto-modal" alt="" style="width: 100%; height: 70%; object-fit: cover; cursor: pointer">
                                 </div>
                                 <div class="col-2">
                                     <label for="basicInputFile">Ijazah</label>
-                                    <img src="{{ url('user-image') }}/{{ $biodata->ijazah }}" class="img-fluid mb-1 rounded-sm" data-toggle="modal" data-target="#ijazah-modal" alt="" style="width: 100%; height: 70%; object-fit: cover; cursor: pointer">
+                                    <img src="{{ url('user-image') }}/{{ $biodata->ijazah ?? "no-image.png" }}" class="img-fluid mb-1 rounded-sm" data-toggle="modal" data-target="#ijazah-modal" alt="" style="width: 100%; height: 70%; object-fit: cover; cursor: pointer">
                                 </div>
                                 <div class="col-2">
                                     <label for="basicInputFile">Transkrip Nilai</label>
-                                    <img src="{{ url('user-image') }}/{{ $biodata->transkrip_nilai }}" class="img-fluid mb-1 rounded-sm" data-toggle="modal" data-target="#nilai-modal" alt="" style="width: 100%; height: 70%; object-fit: cover; cursor: pointer">
+                                    <img src="{{ url('user-image') }}/{{ $biodata->transkrip_nilai ?? "no-image.png" }}" class="img-fluid mb-1 rounded-sm" data-toggle="modal" data-target="#nilai-modal" alt="" style="width: 100%; height: 70%; object-fit: cover; cursor: pointer">
                                 </div>
                                 <div class="col-2">
                                     <label for="basicInputFile">Portofolio</label>
-                                    <img src="{{ url('user-image') }}/{{ $biodata->portofolio }}" class="img-fluid mb-1 rounded-sm" data-toggle="modal" data-target="#portofolio-modal" alt="" style="width: 100%; height: 70%; object-fit: cover; cursor: pointer">
+                                    <img src="{{ url('user-image') }}/{{ $biodata->portofolio ?? "no-image.png" }}" class="img-fluid mb-1 rounded-sm" data-toggle="modal" data-target="#portofolio-modal" alt="" style="width: 100%; height: 70%; object-fit: cover; cursor: pointer">
                                 </div>
 
                                 <div class="modal fade text-left show" id="ktp-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel1" aria-modal="true">
@@ -196,7 +208,7 @@
                                                 </button>
                                             </div>
                                             <div class="modal-body">
-                                                <img src="{{ url('user-image') }}/{{ $biodata->ktp }}" class="img-fluid mb-1 rounded-sm" style="width: 100%; height: 95%; object-fit: cover;">
+                                                <img src="{{ url('user-image') }}/{{ $biodata->ktp ?? "no-image.png" }}" class="img-fluid mb-1 rounded-sm" style="width: 100%; height: 95%; object-fit: cover;">
                                             </div>
                                             <div class="modal-footer">
                                                 <button type="button" class="btn btn-warning waves-effect waves-light" data-dismiss="modal">Tutup</button>
@@ -215,7 +227,7 @@
                                                 </button>
                                             </div>
                                             <div class="modal-body">
-                                                <img src="{{ url('user-image') }}/{{ $biodata->pas_poto }}" class="img-fluid mb-1 rounded-sm" style="width: 100%; height: 95%; object-fit: cover;">
+                                                <img src="{{ url('user-image') }}/{{ $biodata->pas_poto ?? "no-image.png" }}" class="img-fluid mb-1 rounded-sm" style="width: 100%; height: 95%; object-fit: cover;">
                                             </div>
                                             <div class="modal-footer">
                                                 <button type="button" class="btn btn-warning waves-effect waves-light" data-dismiss="modal">Tutup</button>
@@ -234,7 +246,7 @@
                                                 </button>
                                             </div>
                                             <div class="modal-body">
-                                                <img src="{{ url('user-image') }}/{{ $biodata->ijazah }}" class="img-fluid mb-1 rounded-sm" style="width: 100%; height: 95%; object-fit: cover;">
+                                                <img src="{{ url('user-image') }}/{{ $biodata->ijazah ?? "no-image.png" }}" class="img-fluid mb-1 rounded-sm" style="width: 100%; height: 95%; object-fit: cover;">
                                             </div>
                                             <div class="modal-footer">
                                                 <button type="button" class="btn btn-warning waves-effect waves-light" data-dismiss="modal">Tutup</button>
@@ -253,7 +265,7 @@
                                                 </button>
                                             </div>
                                             <div class="modal-body">
-                                                <img src="{{ url('user-image') }}/{{ $biodata->transkrip_nilai }}" class="img-fluid mb-1 rounded-sm" style="width: 100%; height: 95%; object-fit: cover;">
+                                                <img src="{{ url('user-image') }}/{{ $biodata->transkrip_nilai ?? "no-image.png" }}" class="img-fluid mb-1 rounded-sm" style="width: 100%; height: 95%; object-fit: cover;">
                                             </div>
                                             <div class="modal-footer">
                                                 <button type="button" class="btn btn-warning waves-effect waves-light" data-dismiss="modal">Tutup</button>
@@ -272,7 +284,7 @@
                                                 </button>
                                             </div>
                                             <div class="modal-body">
-                                                <img src="{{ url('user-image') }}/{{ $biodata->portofolio }}" class="img-fluid mb-1 rounded-sm" style="width: 100%; height: 95%; object-fit: cover;">
+                                                <img src="{{ url('user-image') }}/{{ $biodata->portofolio ?? "no-image.png" }}" class="img-fluid mb-1 rounded-sm" style="width: 100%; height: 95%; object-fit: cover;">
                                             </div>
                                             <div class="modal-footer">
                                                 <button type="button" class="btn btn-warning waves-effect waves-light" data-dismiss="modal">Tutup</button>

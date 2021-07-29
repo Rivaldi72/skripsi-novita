@@ -9,7 +9,9 @@
 @endsection
 
 @section('append_script')
-
+<script>
+    $('.zero-configuration').DataTable();
+</script>
 @endsection
 
 @section('title')
@@ -22,7 +24,6 @@
         <div class="row breadcrumbs-top">
             <div class="col-12">
                 <h2 class="content-header-title float-left mb-0">DATA KRITERIA</h2>
-
             </div>
         </div>
     </div>
@@ -39,12 +40,12 @@
         <div class="card p-2">
             <div class="row justify-content-end">
                 <div class="col-2">
-                    <fieldset class="position-relative has-icon-left input-divider-left">
+                    {{-- <fieldset class="position-relative has-icon-left input-divider-left">
                         <input type="text" class="form-control" id="iconLeft3" placeholder="Search">
                         <div class="form-control-position">
                             <i class="feather icon-search"></i>
                         </div>
-                    </fieldset>
+                    </fieldset> --}}
                 </div>
             </div>
         </div>
@@ -60,41 +61,27 @@
                                         <tr>
                                             <th>No</th>
                                             <th>Kriteria</th>
-                                            <th>Tipe</th>
+                                            <th>Jenis</th>
+                                            <th>Kepentingan</th>
+                                            <th>Bobot</th>
                                             <th>Aksi</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <td> 1 </td>
-                                            <td> Novita Pratiwi </td>
-                                            <td> Test 123 </td>
-                                            <td>
-                                                <button type="button" class="btn btn-icon btn-warning btn-relief-warning mr-1 mb-1 waves-effect waves-light editBtn" data-toggle="modal" data-target="#editBarang">
-                                                    <i class="feather icon-eye"></i>
-                                                </button>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td> 2 </td>
-                                            <td> Novita Pratiwi </td>
-                                            <td> Test 123 </td>
-                                            <td>
-                                                <button type="button" class="btn btn-icon btn-warning btn-relief-warning mr-1 mb-1 waves-effect waves-light editBtn" data-toggle="modal" data-target="#editBarang">
-                                                    <i class="feather icon-eye"></i>
-                                                </button>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td> 3 </td>
-                                            <td> Novita Pratiwi </td>
-                                            <td> Test 123 </td>
-                                            <td>
-                                                <button type="button" class="btn btn-icon btn-warning btn-relief-warning mr-1 mb-1 waves-effect waves-light editBtn" data-toggle="modal" data-target="#editBarang">
-                                                    <i class="feather icon-eye"></i>
-                                                </button>
-                                            </td>
-                                        </tr>
+                                        @foreach ($kriteria as $number => $kriteria)
+                                            <tr>
+                                                <td> {{ $number + 1 }} </td>
+                                                <td> {{ $kriteria->kriteria }} </td>
+                                                <td> {{ ucfirst($kriteria->jenis) }} </td>
+                                                <td> {{ $kriteria->kepentingan }} </td>
+                                                <td> {{ $kriteria->bobot ?? 'Data Belum diisi' }} </td>
+                                                <td>
+                                                    <button type="button" class="btn btn-icon btn-warning btn-relief-warning mr-1 mb-1 waves-effect waves-light editBtn" data-toggle="modal" data-target="#editBarang">
+                                                        <i class="feather icon-eye"></i>
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                        @endforeach
                                     </tbody>
                                 </table>
                             </div>
