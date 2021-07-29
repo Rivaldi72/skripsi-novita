@@ -48,7 +48,7 @@
 
                     <div class="card-content">
                         <div class="card-body card-dashboard">
-                            <form action="{{ route('alternatif-biodata-store') }}" method="POST" id="dataForm">
+                            <form action="{{ route('alternatif-biodata-store') }}" method="POST" id="dataForm" enctype="multipart/form-data">
                                 {{ csrf_field() }}
                                 {{ method_field('POST') }}
                                 <div class="row">
