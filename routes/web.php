@@ -33,6 +33,7 @@ Route::group(['middleware' => ['auth', 'role:admin,pelamar']], function () {
 Route::group(['middleware' => ['auth', 'role:pelamar']], function () {
     Route::get('/alternatif-biodata', 'AlternatifController@biodata')->name('alternatif-biodata');
     Route::post('/alternatif-biodata/store', 'AlternatifController@biodataStore')->name('alternatif-biodata-store');
+    // Route::put('/alternatif-biodata/update/{id_user}', 'AlternatifController@biodataUpdate')->name('alternatif-biodata-update');
 });
 
 Route::group(['middleware' => ['auth', 'role:direktur,admin']], function () {

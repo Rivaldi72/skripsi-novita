@@ -177,25 +177,26 @@
                                         <input type="text" class="form-control" id="" placeholder="{{ $biodata->ipk ?? "Pelamar belum mengisi biodata" }}" disabled>
                                     </fieldset>
                                 </div>
+                                
                                 <div class="col-2">
                                     <label for="basicInputFile">KTP</label>
-                                    <img src="{{ url('user-image') }}/{{ $biodata->ktp ?? "no-image.png" }}" class="img-fluid mb-1 rounded-sm" data-toggle="modal" data-target="#ktp-modal" alt="" style="width: 100%; height: 70%; object-fit: cover; cursor: pointer">
+                                    <img src="{{ Storage::disk('user_file')->exists($biodata->ktp) ? asset('storage/user-file/'.$biodata->ktp) : url('user-image/no-image.png') }}" class="img-fluid mb-1 rounded-sm" data-toggle="modal" data-target="#ktp-modal" alt="" style="width: 100%; height: 70%; object-fit: cover; cursor: pointer">
                                 </div>
                                 <div class="col-2">
                                     <label for="basicInputFile">Pas Foto</label>
-                                    <img src="{{ url('user-image') }}/{{ $biodata->pas_poto ?? "no-image.png" }}" class="img-fluid mb-1 rounded-sm" data-toggle="modal" data-target="#pas-foto-modal" alt="" style="width: 100%; height: 70%; object-fit: cover; cursor: pointer">
+                                    <img src="{{ Storage::disk('user_file')->exists($biodata->pas_poto) ? asset('storage/user-file/'.$biodata->pas_poto) : url('user-image/no-image.png') }}" class="img-fluid mb-1 rounded-sm" data-toggle="modal" data-target="#pas-foto-modal" alt="" style="width: 100%; height: 70%; object-fit: cover; cursor: pointer">
                                 </div>
                                 <div class="col-2">
                                     <label for="basicInputFile">Ijazah</label>
-                                    <img src="{{ url('user-image') }}/{{ $biodata->ijazah ?? "no-image.png" }}" class="img-fluid mb-1 rounded-sm" data-toggle="modal" data-target="#ijazah-modal" alt="" style="width: 100%; height: 70%; object-fit: cover; cursor: pointer">
+                                    <img src="{{ Storage::disk('user_file')->exists($biodata->ijazah) ? asset('storage/user-file/'.$biodata->ijazah) : url('user-image/no-image.png') }}" class="img-fluid mb-1 rounded-sm" data-toggle="modal" data-target="#ijazah-modal" alt="" style="width: 100%; height: 70%; object-fit: cover; cursor: pointer">
                                 </div>
                                 <div class="col-2">
                                     <label for="basicInputFile">Transkrip Nilai</label>
-                                    <img src="{{ url('user-image') }}/{{ $biodata->transkrip_nilai ?? "no-image.png" }}" class="img-fluid mb-1 rounded-sm" data-toggle="modal" data-target="#nilai-modal" alt="" style="width: 100%; height: 70%; object-fit: cover; cursor: pointer">
+                                    <img src="{{ Storage::disk('user_file')->exists($biodata->transkrip_nilai) ? asset('storage/user-file/'.$biodata->transkrip_nilai) : url('user-image/no-image.png') }}" class="img-fluid mb-1 rounded-sm" data-toggle="modal" data-target="#nilai-modal" alt="" style="width: 100%; height: 70%; object-fit: cover; cursor: pointer">
                                 </div>
                                 <div class="col-2">
                                     <label for="basicInputFile">Portofolio</label>
-                                    <img src="{{ url('user-image') }}/{{ $biodata->portofolio ?? "no-image.png" }}" class="img-fluid mb-1 rounded-sm" data-toggle="modal" data-target="#portofolio-modal" alt="" style="width: 100%; height: 70%; object-fit: cover; cursor: pointer">
+                                    <img src="{{ Storage::disk('user_file')->exists($biodata->portofolio) ? asset('storage/user-file/'.$biodata->portofolio) : url('user-image/no-image.png') }}" class="img-fluid mb-1 rounded-sm" data-toggle="modal" data-target="#portofolio-modal" alt="" style="width: 100%; height: 70%; object-fit: cover; cursor: pointer">
                                 </div>
 
                                 <div class="modal fade text-left show" id="ktp-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel1" aria-modal="true">
@@ -208,7 +209,7 @@
                                                 </button>
                                             </div>
                                             <div class="modal-body">
-                                                <img src="{{ url('user-image') }}/{{ $biodata->ktp ?? "no-image.png" }}" class="img-fluid mb-1 rounded-sm" style="width: 100%; height: 95%; object-fit: cover;">
+                                                <img src="{{ Storage::disk('user_file')->exists($biodata->ktp) ? asset('storage/user-file/'.$biodata->ktp) : url('user-image/no-image.png') }}" class="img-fluid mb-1 rounded-sm" style="width: 100%; height: 95%; object-fit: cover;">
                                             </div>
                                             <div class="modal-footer">
                                                 <button type="button" class="btn btn-warning waves-effect waves-light" data-dismiss="modal">Tutup</button>
@@ -227,7 +228,7 @@
                                                 </button>
                                             </div>
                                             <div class="modal-body">
-                                                <img src="{{ url('user-image') }}/{{ $biodata->pas_poto ?? "no-image.png" }}" class="img-fluid mb-1 rounded-sm" style="width: 100%; height: 95%; object-fit: cover;">
+                                                <img src="{{ Storage::disk('user_file')->exists($biodata->pas_poto) ? asset('storage/user-file/'.$biodata->pas_poto) : url('user-image/no-image.png') }}" class="img-fluid mb-1 rounded-sm" style="width: 100%; height: 95%; object-fit: cover;">
                                             </div>
                                             <div class="modal-footer">
                                                 <button type="button" class="btn btn-warning waves-effect waves-light" data-dismiss="modal">Tutup</button>
@@ -246,7 +247,7 @@
                                                 </button>
                                             </div>
                                             <div class="modal-body">
-                                                <img src="{{ url('user-image') }}/{{ $biodata->ijazah ?? "no-image.png" }}" class="img-fluid mb-1 rounded-sm" style="width: 100%; height: 95%; object-fit: cover;">
+                                                <img src="{{ Storage::disk('user_file')->exists($biodata->ijazah) ? asset('storage/user-file/'.$biodata->ijazah) : url('user-image/no-image.png') }}" class="img-fluid mb-1 rounded-sm" style="width: 100%; height: 95%; object-fit: cover;">
                                             </div>
                                             <div class="modal-footer">
                                                 <button type="button" class="btn btn-warning waves-effect waves-light" data-dismiss="modal">Tutup</button>
@@ -265,7 +266,7 @@
                                                 </button>
                                             </div>
                                             <div class="modal-body">
-                                                <img src="{{ url('user-image') }}/{{ $biodata->transkrip_nilai ?? "no-image.png" }}" class="img-fluid mb-1 rounded-sm" style="width: 100%; height: 95%; object-fit: cover;">
+                                                <img src="{{ Storage::disk('user_file')->exists($biodata->transkrip_nilai) ? asset('storage/user-file/'.$biodata->transkrip_nilai) : url('user-image/no-image.png') }}" class="img-fluid mb-1 rounded-sm" style="width: 100%; height: 95%; object-fit: cover;">
                                             </div>
                                             <div class="modal-footer">
                                                 <button type="button" class="btn btn-warning waves-effect waves-light" data-dismiss="modal">Tutup</button>
@@ -284,7 +285,7 @@
                                                 </button>
                                             </div>
                                             <div class="modal-body">
-                                                <img src="{{ url('user-image') }}/{{ $biodata->portofolio ?? "no-image.png" }}" class="img-fluid mb-1 rounded-sm" style="width: 100%; height: 95%; object-fit: cover;">
+                                                <img src="{{ Storage::disk('user_file')->exists($biodata->portofolio) ? asset('storage/user-file/'.$biodata->portofolio) : url('user-image/no-image.png') }}" class="img-fluid mb-1 rounded-sm" style="width: 100%; height: 95%; object-fit: cover;">
                                             </div>
                                             <div class="modal-footer">
                                                 <button type="button" class="btn btn-warning waves-effect waves-light" data-dismiss="modal">Tutup</button>
