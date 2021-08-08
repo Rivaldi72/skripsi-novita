@@ -8,6 +8,7 @@ use App\Model\Biodata;
 use Auth;
 use Str;
 use Carbon\Carbon;
+use App\Http\Requests\BiodataRequest;
 
 class AlternatifController extends Controller
 {
@@ -31,20 +32,32 @@ class AlternatifController extends Controller
         return view('pages.alternatif.biodata', compact('biodata'));
     }
 
-    public function biodataStore(Request $request)
+    public function biodataStore(BiodataRequest $request)
     {
+        // dd($request->all());
+
         $birtDate = $request->tanggal_lahir;
         $formatedBirtDate = Carbon::parse($birtDate)->format('Y-m-d');
-        $dataFile = [];
+        $dataFile = [
+            'ktp' => null,
+            'pas_poto' => null,
+            'ijazah' => null,
+            'transkrip_nilai' => null,
+            'portofolio' => null,
+        ];
         $files = $request->file('file');
-        foreach ($files as $key => $data) {
-            $getFileExt = $data->getClientOriginalExtension();
-            $fileName =  $key.'-'.Str::uuid().'.'.$getFileExt;
-            $data->storeAs('public/user-file', $fileName);
-            $dataFile[$key] = $fileName;
+        
+        if ($files != null) {
+            foreach ($files as $key => $data) {
+                $getFileExt = $data->getClientOriginalExtension();
+                $fileName =  $key.'-'.Str::uuid().'.'.$getFileExt;
+                $data->storeAs('public/user-file', $fileName);
+                $dataFile[$key] = $fileName;
+            }
         }
-
-        $biodata = Biodata::where('id_user', Auth::user()->id_user);
+        
+        
+        $biodata = Biodata::where('id_user', Auth::user()->id_user)->first();
 
         $data = Biodata::updateOrCreate(
             [
@@ -62,12 +75,14 @@ class AlternatifController extends Controller
                 'pendidikan_terakhir' => $request->pendidikan_terakhir ?? $biodata->pendidikan_terakhir,
                 'jurusan_pendidikan' => $request->jurusan_pendidikan ?? $biodata->jurusan_pendidikan,
                 'ipk' => $request->ipk ?? $biodata->ipk,
-                'ktp' => isset($dataFile['ktp']) ? $dataFile['ktp'] : $biodata->ktp,
-                'pas_poto' => isset($dataFile['pas_poto']) ? $dataFile['pas_poto'] : $biodata->pas_poto,
-                'ijazah' => isset($dataFile['ijazah']) ? $dataFile['ijazah'] : $biodata->ijazah,
-                'transkrip_nilai' => isset($dataFile['transkrip_nilai']) ? $dataFile['transkrip_nilai'] : $biodata->transkrip_nilai,
-                'portofolio' => isset($dataFile['portofolio']) ? $dataFile['portofolio'] : $biodata->portofolio,
+                'ktp' => !is_null($dataFile['ktp']) ? $dataFile['ktp'] : $biodata->ktp,
+                'pas_poto' => !is_null($dataFile['pas_poto']) ? $dataFile['pas_poto'] : $biodata->pas_poto,
+                'ijazah' => !is_null($dataFile['ijazah']) ? $dataFile['ijazah'] : $biodata->ijazah,
+                'transkrip_nilai' => !is_null($dataFile['transkrip_nilai']) ? $dataFile['transkrip_nilai'] : $biodata->transkrip_nilai,
+                'portofolio' => !is_null($dataFile['portofolio']) ? $dataFile['portofolio'] : $biodata->portofolio,
             ]
         );
+
+        return redirect()->route('alternatif-biodata');
     }
 }

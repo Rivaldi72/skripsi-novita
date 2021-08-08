@@ -9,7 +9,9 @@
 @endsection
 
 @section('append_script')
-
+    <script>
+        $('.zero-configuration').DataTable();
+    </script>
 @endsection
 
 @section('title')

@@ -17,6 +17,20 @@
     <script src="{{ URL::asset('app-assets/js/scripts/pickers/dateTime/pick-a-datetime.js') }}"></script>
 
     <script>
+        var picker = $('.tanggal_lahir').pickadate({
+            onStart: function() {
+                var date = new Date('{{ $biodata->tanggal_lahir }}');
+                console.log(this)
+                this.set('select',  date );
+            },
+            selectYears: 100,
+            selectMonths: true
+        });
+        // var date = new Date(1983, 1, 1);
+        // picker.set('select', date);
+    </script>
+
+    <script>
         var itemsPengalamanKerja = [];
         var itemsKemampuanBahasaAsing = [];
         var indexItemPengalamanKerja = 0;
@@ -28,6 +42,10 @@
             perusahaan = $("#perusahaan").val();
             jabatan = $("#jabatan").val();
             lamaKerja = $("#lama_kerja").val();
+
+            if(perusahaan || jabatan || lamaKerja == '') {
+                return alert('Isi semua data terlebih dahulu')
+            }
             
             itemsPengalamanKerja.push({idItem: idItem, perusahaan: perusahaan, jabatan: jabatan, lamaKerja: lamaKerja});
 
@@ -59,6 +77,10 @@
             read = $("#read").val();
             write = $("#write").val();
             speak = $("#speak").val();
+
+            if(bahasa || read || write || speak == '') {
+                return alert('Isi semua data terlebih dahulu')
+            }
             
             itemsKemampuanBahasaAsing.push({idItem: idItem, bahasa: bahasa, read: read, write: write, speak: speak});
 
@@ -160,13 +182,24 @@
     <section id="basic-datatable">
         <div class="row">
             <div class="col-12">
+                @if ($errors->any())
+                    <div class="alert alert-danger">
+                        <ul>
+                            {{-- @foreach ($errors->all() as $error) --}}
+                                <li>Data belum lengkap, Pastikan Semua Data Terisi</li>
+                            {{-- @endforeach --}}
+                        </ul>
+                    </div>
+                @endif
+            </div>
+            <div class="col-12">
                 <div class="card">
 
                     <div class="card-content">
                         <div class="card-body card-dashboard">
                             <form action="{{ route('alternatif-biodata-store') }}" method="POST" id="dataForm" enctype="multipart/form-data">
                             {{ csrf_field() }}
-                                <div class="row">
+                                <div class="row justify-content-between">
                                     <div class="col-12">
                                         <fieldset class="form-group">
                                             <label for="basicInput">Nama</label>
@@ -189,7 +222,7 @@
                                         <fieldset class="form-group">
                                             <label for="basicInput">Tanggal Lahir</label>
                                             <form action="">
-                                                <input type='text' name="tanggal_lahir" class="form-control pickadate" id="" placeholder="Data Of Birth"  value="{{ $biodata->tanggl_lahir ?? '' }}">
+                                                <input type='text' name="tanggal_lahir" class="form-control tanggal_lahir" id="" placeholder="Data Of Birth"  value="{{ $biodata->tanggl_lahir ?? '' }}">
                                             </form>
                                         </fieldset>
                                     </div>
@@ -203,9 +236,9 @@
                                         <fieldset class="form-group">
                                             <label for="basicInput">Jenis Kelamin</label>
                                             <select class="custom-select" name="jenis_kelamin" id="customSelect">
-                                                <option selected="" value="">Pilih jenis kelamin</option>
-                                                <option value="L">Laki-laki</option>
-                                                <option value="P">Perempuan</option>
+                                                <option {{ $biodata->jenis_kelamin == null ? 'selected' : "" }} value="">Pilih jenis kelamin</option>
+                                                <option {{ $biodata->jenis_kelamin == "L"  ? 'selected' : "" }} value="L">Laki-laki</option>
+                                                <option {{ $biodata->jenis_kelamin == "P"  ? 'selected' : "" }} value="P">Perempuan</option>
                                             </select>
                                         </fieldset>
                                     </div>
@@ -213,10 +246,10 @@
                                         <fieldset class="form-group">
                                             <label for="basicInput">Status</label>
                                             <select class="custom-select" name="status" id="customSelect">
-                                                <option selected="">Pilih status</option>
-                                                <option value="Belum Menikah">Belum Menikah</option>
-                                                <option value="Menikah">Menikah</option>
-                                                <option value="Janda / Duda">Janda / Duda</option>
+                                                <option {{ $biodata->status == null ? 'selected' : "" }}>Pilih status</option>
+                                                <option {{ $biodata->status == "Belum Menikah"  ? 'selected' : "" }} value="Belum Menikah">Belum Menikah</option>
+                                                <option {{ $biodata->status == "Menikah"  ? 'selected' : "" }} value="Menikah">Menikah</option>
+                                                <option {{ $biodata->status == "Janda / Duda"  ? 'selected' : "" }} value="Janda / Duda">Janda / Duda</option>
                                             </select>
                                         </fieldset>
                                     </div>
@@ -230,13 +263,13 @@
                                         <fieldset class="form-group">
                                             <label for="basicInput">Pendidikan Terakhir</label>
                                             <select class="custom-select" name="pendidikan_terakhir" id="customSelect">
-                                                <option selected="">Pilih pendidikan terakhir</option>
-                                                <option value="SD">Sekolah Dasar (Setara)</option>
-                                                <option value="SMP">Sekolah Menengah Pertama (Setara)</option>
-                                                <option value="SMA">Sekolah Menengah Atas (Setara)</option>
-                                                <option value="S1">Strata-I (Setara)</option>
-                                                <option value="S2">Strata-II (Setara)</option>
-                                                <option value="S3">Strata-III (Setara)</option>
+                                                <option {{ $biodata->pendidikan_terakhir == null ? 'selected' : "" }} >Pilih pendidikan terakhir</option>
+                                                <option {{ $biodata->pendidikan_terakhir == "SD"  ? 'selected' : "" }} value="SD">Sekolah Dasar (Setara)</option>
+                                                <option {{ $biodata->pendidikan_terakhir == "SMP"  ? 'selected' : "" }} value="SMP">Sekolah Menengah Pertama (Setara)</option>
+                                                <option {{ $biodata->pendidikan_terakhir == "SMA"  ? 'selected' : "" }} value="SMA">Sekolah Menengah Atas / Kejuruan (Setara)</option>
+                                                <option {{ $biodata->pendidikan_terakhir == "S1"  ? 'selected' : "" }} value="S1">Strata-I (Setara)</option>
+                                                <option {{ $biodata->pendidikan_terakhir == "S2"  ? 'selected' : "" }} value="S2">Strata-II (Setara)</option>
+                                                <option {{ $biodata->pendidikan_terakhir == "S3"  ? 'selected' : "" }} value="S3">Strata-III (Setara)</option>
                                             </select>
                                         </fieldset>
                                     </div>
@@ -382,6 +415,7 @@
                                             </div>
                                         </div>
                                     </div>
+
                                     <div class="col-12">
                                         <fieldset class="form-group">
                                             <label for="basicInput">Jurusan Pendidikan</label>
@@ -394,54 +428,180 @@
                                             <input type="text" class="form-control" name="ipk" id="" placeholder="Masukkan IPK" value="{{ $biodata->ipk ?? '' }}">
                                         </fieldset>
                                     </div>
-                                    <div class="col-12">
-                                        <fieldset class="form-group">
-                                            <label for="basicInputFile">KTP</label>
-                                            <div class="custom-file">
-                                                <input type="file" class="custom-file-input" name="file[ktp]" id="inputGroupFile01">
-                                                <label class="custom-file-label" for="inputGroupFile01">Upload File KTP</label>
+
+                                    <div class="col-2">
+                                        <label for="basicInputFile">KTP</label>
+                                        <img src="{{ Storage::disk('user_file')->exists($biodata->ktp) ? asset('storage/user-file/'.$biodata->ktp) : url('user-image/no-image.png') }}" class="img-fluid mb-1 rounded-sm" data-toggle="modal" data-target="#ktp-modal" alt="" style="width: 100%; height: 70%; object-fit: cover; cursor: pointer">
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <fieldset class="form-group">
+                                                    <label for="basicInputFile">KTP</label>
+                                                    <div class="custom-file">
+                                                        <input type="file" class="custom-file-input" name="file[ktp]" id="inputGroupFile01">
+                                                        <label class="custom-file-label" for="inputGroupFile01">Upload File KTP</label>
+                                                    </div>
+                                                </fieldset>
                                             </div>
-                                        </fieldset>
+                                        </div>
                                     </div>
-                                    <div class="col-12">
-                                        <fieldset class="form-group">
-                                            <label for="basicInputFile">Pas Photo</label>
-                                            <div class="custom-file">
-                                                <input type="file" class="custom-file-input" name="file[pas_poto]" id="inputGroupFile01">
-                                                <label class="custom-file-label" for="inputGroupFile01">Upload Pas Foto</label>
+                                    <div class="col-2">
+                                        <label for="basicInputFile">Pas Foto</label>
+                                        <img src="{{ Storage::disk('user_file')->exists($biodata->pas_poto) ? asset('storage/user-file/'.$biodata->pas_poto) : url('user-image/no-image.png') }}" class="img-fluid mb-1 rounded-sm" data-toggle="modal" data-target="#pas-foto-modal" alt="" style="width: 100%; height: 70%; object-fit: cover; cursor: pointer">
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <fieldset class="form-group">
+                                                    <label for="basicInputFile">Pas Photo</label>
+                                                    <div class="custom-file">
+                                                        <input type="file" class="custom-file-input" name="file[pas_poto]" id="inputGroupFile01">
+                                                        <label class="custom-file-label" for="inputGroupFile01">Upload Pas Foto</label>
+                                                    </div>
+                                                </fieldset>
                                             </div>
-                                        </fieldset>
+                                        </div>
                                     </div>
-                                    <div class="col-12">
-                                        <fieldset class="form-group">
-                                            <label for="basicInputFile">Ijazah</label>
-                                            <div class="custom-file">
-                                                <input type="file" class="custom-file-input" name="file[ijazah]" id="inputGroupFile01">
-                                                <label class="custom-file-label" for="inputGroupFile01">Upload Ijazah</label>
+                                    <div class="col-2">
+                                        <label for="basicInputFile">Ijazah</label>
+                                        <img src="{{ Storage::disk('user_file')->exists($biodata->ijazah) ? asset('storage/user-file/'.$biodata->ijazah) : url('user-image/no-image.png') }}" class="img-fluid mb-1 rounded-sm" data-toggle="modal" data-target="#ijazah-modal" alt="" style="width: 100%; height: 70%; object-fit: cover; cursor: pointer">
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <fieldset class="form-group">
+                                                    <label for="basicInputFile">Ijazah</label>
+                                                    <div class="custom-file">
+                                                        <input type="file" class="custom-file-input" name="file[ijazah]" id="inputGroupFile01">
+                                                        <label class="custom-file-label" for="inputGroupFile01">Upload Ijazah</label>
+                                                    </div>
+                                                </fieldset>
                                             </div>
-                                        </fieldset>
+                                        </div>
                                     </div>
-                                    <div class="col-12">
-                                        <fieldset class="form-group">
-                                            <label for="basicInputFile">Transkip Nilai</label>
-                                            <div class="custom-file">
-                                                <input type="file" class="custom-file-input" name="file[transkrip_nilai]" id="inputGroupFile01">
-                                                <label class="custom-file-label" for="inputGroupFile01">Upload Transkip Nilai</label>
+                                    <div class="col-2">
+                                        <label for="basicInputFile">Transkrip Nilai</label>
+                                        <img src="{{ Storage::disk('user_file')->exists($biodata->transkrip_nilai) ? asset('storage/user-file/'.$biodata->transkrip_nilai) : url('user-image/no-image.png') }}" class="img-fluid mb-1 rounded-sm" data-toggle="modal" data-target="#nilai-modal" alt="" style="width: 100%; height: 70%; object-fit: cover; cursor: pointer">
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <fieldset class="form-group">
+                                                    <label for="basicInputFile">Transkip Nilai</label>
+                                                    <div class="custom-file">
+                                                        <input type="file" class="custom-file-input" name="file[transkrip_nilai]" id="inputGroupFile01">
+                                                        <label class="custom-file-label" for="inputGroupFile01">Upload Transkip Nilai</label>
+                                                    </div>
+                                                </fieldset>
                                             </div>
-                                        </fieldset>
+                                        </div>
                                     </div>
-                                    <div class="col-12">
-                                        <fieldset class="form-group">
-                                            <label for="basicInputFile">Portofolio</label>
-                                            <div class="custom-file">
-                                                <input type="file" class="custom-file-input" name="file[portofolio]" id="inputGroupFile01">
-                                                <label class="custom-file-label" for="inputGroupFile01">Upload Portofolio</label>
+                                    <div class="col-2">
+                                        <label for="basicInputFile">Portofolio</label>
+                                        <img src="{{ Storage::disk('user_file')->exists($biodata->portofolio) ? asset('storage/user-file/'.$biodata->portofolio) : url('user-image/no-image.png') }}" class="img-fluid mb-1 rounded-sm" data-toggle="modal" data-target="#portofolio-modal" alt="" style="width: 100%; height: 70%; object-fit: cover; cursor: pointer">
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <fieldset class="form-group">
+                                                    <label for="basicInputFile">Portofolio</label>
+                                                    <div class="custom-file">
+                                                        <input type="file" class="custom-file-input" name="file[portofolio]" id="inputGroupFile01">
+                                                        <label class="custom-file-label" for="inputGroupFile01">Upload Portofolio</label>
+                                                    </div>
+                                                </fieldset>
                                             </div>
-                                        </fieldset>
+                                        </div>
+                                    </div>
+    
+                                    <div class="modal fade text-left show" id="ktp-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel1" aria-modal="true">
+                                        <div class="modal-dialog modal-dialog-scrollable" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h4 class="modal-title" id="myModalLabel1">KTP</h4>
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">×</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <img src="{{ Storage::disk('user_file')->exists($biodata->ktp) ? asset('storage/user-file/'.$biodata->ktp) : url('user-image/no-image.png') }}" class="img-fluid mb-1 rounded-sm" style="width: 100%; height: 95%; object-fit: cover;">
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-warning waves-effect waves-light" data-dismiss="modal">Tutup</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+    
+                                    <div class="modal fade text-left show" id="pas-foto-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel1" aria-modal="true">
+                                        <div class="modal-dialog modal-dialog-scrollable" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h4 class="modal-title" id="myModalLabel1">Pas Foto</h4>
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">×</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <img src="{{ Storage::disk('user_file')->exists($biodata->pas_poto) ? asset('storage/user-file/'.$biodata->pas_poto) : url('user-image/no-image.png') }}" class="img-fluid mb-1 rounded-sm" style="width: 100%; height: 95%; object-fit: cover;">
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-warning waves-effect waves-light" data-dismiss="modal">Tutup</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+    
+                                    <div class="modal fade text-left show" id="ijazah-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel1" aria-modal="true">
+                                        <div class="modal-dialog modal-dialog-scrollable" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h4 class="modal-title" id="myModalLabel1">Ijazah</h4>
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">×</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <img src="{{ Storage::disk('user_file')->exists($biodata->ijazah) ? asset('storage/user-file/'.$biodata->ijazah) : url('user-image/no-image.png') }}" class="img-fluid mb-1 rounded-sm" style="width: 100%; height: 95%; object-fit: cover;">
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-warning waves-effect waves-light" data-dismiss="modal">Tutup</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+    
+                                    <div class="modal fade text-left show" id="nilai-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel1" aria-modal="true">
+                                        <div class="modal-dialog modal-dialog-scrollable" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h4 class="modal-title" id="myModalLabel1">Transkrip Nilai</h4>
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">×</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <img src="{{ Storage::disk('user_file')->exists($biodata->transkrip_nilai) ? asset('storage/user-file/'.$biodata->transkrip_nilai) : url('user-image/no-image.png') }}" class="img-fluid mb-1 rounded-sm" style="width: 100%; height: 95%; object-fit: cover;">
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-warning waves-effect waves-light" data-dismiss="modal">Tutup</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+    
+                                    <div class="modal fade text-left show" id="portofolio-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel1" aria-modal="true">
+                                        <div class="modal-dialog modal-dialog-scrollable" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h4 class="modal-title" id="myModalLabel1">Portofolio</h4>
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">×</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <img src="{{ Storage::disk('user_file')->exists($biodata->portofolio) ? asset('storage/user-file/'.$biodata->portofolio) : url('user-image/no-image.png') }}" class="img-fluid mb-1 rounded-sm" style="width: 100%; height: 95%; object-fit: cover;">
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-warning waves-effect waves-light" data-dismiss="modal">Tutup</button>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
 
                                     <div class="col-12">
-                                        <button type="submit" class="btn btn-success waves-effect waves-light">Simpan</button>
+                                        <button type="submit" class="btn btn-relief-success btn-block waves-effect waves-light">Simpan</button>
                                     </div>
                                 </div>
                             </form>
