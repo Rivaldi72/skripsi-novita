@@ -78,9 +78,9 @@
                                         <td> Test 123 </td>
                                         <td> Pertama (1) </td>
                                         <td>
-                                                <button type="button" class="btn btn-icon btn-warning btn-relief-warning mr-1 mb-1 waves-effect waves-light editBtn" data-toggle="modal" data-target="#editBarang">
-                                                    <i class="feather icon-eye"></i>
-                                                </button>
+                                            <button type="button" class="btn btn-icon btn-warning btn-relief-warning mr-1 mb-1 waves-effect waves-light editBtn" data-toggle="modal" data-target="#editBarang">
+                                                <i class="feather icon-eye"></i>
+                                            </button>
                                         </td>
                                     </tr>
                                     <tr>
@@ -89,9 +89,9 @@
                                         <td> Test 123 </td>
                                         <td> Kedua (2) </td>
                                         <td>
-                                                <button type="button" class="btn btn-icon btn-warning btn-relief-warning mr-1 mb-1 waves-effect waves-light editBtn" data-toggle="modal" data-target="#editBarang">
-                                                    <i class="feather icon-eye"></i>
-                                                </button>
+                                            <button type="button" class="btn btn-icon btn-warning btn-relief-warning mr-1 mb-1 waves-effect waves-light editBtn" data-toggle="modal" data-target="#editBarang">
+                                                <i class="feather icon-eye"></i>
+                                            </button>
                                         </td>
                                     </tr>
                                     <tr>
@@ -100,9 +100,9 @@
                                         <td> Test 123 </td>
                                         <td> Ketiga (3) </td>
                                         <td>
-                                                <button type="button" class="btn btn-icon btn-warning btn-relief-warning mr-1 mb-1 waves-effect waves-light editBtn" data-toggle="modal" data-target="#editBarang">
-                                                    <i class="feather icon-eye"></i>
-                                                </button>
+                                            <button type="button" class="btn btn-icon btn-warning btn-relief-warning mr-1 mb-1 waves-effect waves-light editBtn" data-toggle="modal" data-target="#editBarang">
+                                                <i class="feather icon-eye"></i>
+                                            </button>
                                         </td>
                                     </tr>
                                 </tbody>

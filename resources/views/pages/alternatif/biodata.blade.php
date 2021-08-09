@@ -26,8 +26,6 @@
             selectYears: 100,
             selectMonths: true
         });
-        // var date = new Date(1983, 1, 1);
-        // picker.set('select', date);
     </script>
 
     <script>
@@ -37,16 +35,17 @@
         var indexKemampuanBahasaAsing = 0;
 
         function addListPengalamanKerja(){
-            indexItemPengalamanKerja = indexItemPengalamanKerja + 1;
-            idItem = 'pengalamanKerja' + indexItemPengalamanKerja;
             perusahaan = $("#perusahaan").val();
             jabatan = $("#jabatan").val();
             lamaKerja = $("#lama_kerja").val();
 
-            if(perusahaan || jabatan || lamaKerja == '') {
+            if(perusahaan == '' || jabatan == '' || lamaKerja == '') {
                 return alert('Isi semua data terlebih dahulu')
             }
             
+            indexItemPengalamanKerja = indexItemPengalamanKerja + 1;
+            idItem = 'pengalamanKerja' + indexItemPengalamanKerja;
+
             itemsPengalamanKerja.push({idItem: idItem, perusahaan: perusahaan, jabatan: jabatan, lamaKerja: lamaKerja});
 
             $( "#perusahaan" ).val('');
@@ -65,23 +64,26 @@
             ` );
 
             $( "#perusahaan" ).focus();
+            var listItemPengalamanKerja = JSON.stringify(itemsPengalamanKerja);
+            $( "#pengalamanKerja" ).val(listItemPengalamanKerja);
 
             console.table(itemsPengalamanKerja);
             return false;
         }
 
         function addListKemampuanBahasaAsing(){
-            indexKemampuanBahasaAsing = indexKemampuanBahasaAsing + 1;
-            idItem = 'kemampuanBahasaAsing' + indexKemampuanBahasaAsing;
             bahasa = $("#bahasa").val();
             read = $("#read").val();
             write = $("#write").val();
             speak = $("#speak").val();
 
-            if(bahasa || read || write || speak == '') {
+            if(bahasa == '' || read == '' || write == '' || speak == '') {
                 return alert('Isi semua data terlebih dahulu')
             }
             
+            indexKemampuanBahasaAsing = indexKemampuanBahasaAsing + 1;
+            idItem = 'kemampuanBahasaAsing' + indexKemampuanBahasaAsing;
+
             itemsKemampuanBahasaAsing.push({idItem: idItem, bahasa: bahasa, read: read, write: write, speak: speak});
 
             $( "#bahasa" ).val('');
@@ -102,6 +104,8 @@
             ` );
 
             $( "#bahasa" ).focus();
+            var listItemKemampuanBahasaAsing = JSON.stringify(itemsKemampuanBahasaAsing);
+            $( "#kemampuanBahasaAsing" ).val(listItemKemampuanBahasaAsing);
 
             console.table(itemsKemampuanBahasaAsing);
             return false;
@@ -199,6 +203,8 @@
                         <div class="card-body card-dashboard">
                             <form action="{{ route('alternatif-biodata-store') }}" method="POST" id="dataForm" enctype="multipart/form-data">
                             {{ csrf_field() }}
+                                <input type="hidden" name="pengalaman_kerja" id="pengalamanKerja">
+                                <input type="hidden" name="kemampuan_bahasa_asing" id="kemampuanBahasaAsing">
                                 <div class="row justify-content-between">
                                     <div class="col-12">
                                         <fieldset class="form-group">

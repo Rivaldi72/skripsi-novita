@@ -13,7 +13,7 @@
 @endsection
 
 @section('title')
-    Alternatif
+    Detail Nilai Seleksi
 @endsection
 
 @section('content')
@@ -43,7 +43,7 @@
                     <div class="card-content">
                         <div class="card-body card-dashboard">
                             <div class="row">
-                                <div class="col-12 col-md-3">
+                                <div class="col-12 col-md-2">
                                     <fieldset class="form-group">
                                         <label for="usia">Usia (Benefit)</label>
                                         <input type="text" class="form-control" id="usia" placeholder="Nilai Usia" disabled>
@@ -61,7 +61,7 @@
                                         <input type="text" class="form-control" id="ipk" placeholder="Nilai IPK" disabled>
                                     </fieldset>
                                 </div>
-                                <div class="col-12 col-md-2">
+                                <div class="col-12 col-md-3">
                                     <fieldset class="form-group">
                                         <label for="bahasa">Kemampuan Bahasa Asing (Benefit)</label>
                                         <input type="text" class="form-control" id="bahasa" placeholder="Nilai Kemampuan Bahasa Asing" disabled>

@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Model\User;
 use App\Model\Biodata;
+use App\Model\PengalamanKerja;
+use App\Model\KemampuanBahasaAsing;
 use Auth;
 use Str;
 use Carbon\Carbon;
@@ -28,13 +30,18 @@ class AlternatifController extends Controller
 
     public function biodata()
     {
-        $biodata = Biodata::where('id_user', Auth::user()->id_user)->first();
+        $biodata = Biodata::where('id_user', Auth::user()->id_user)->with(['pengalamanKerja', 'kemampuanBahasaAsing'])->first();
+        // dd($biodata->toArray());
         return view('pages.alternatif.biodata', compact('biodata'));
     }
 
     public function biodataStore(BiodataRequest $request)
     {
-        // dd($request->all());
+        // dd(json_decode($request->pengalaman_kerja));
+        $pengalamanKerja = json_decode($request->pengalaman_kerja);
+        $kemampuanBahasaAsing = json_decode($request->kemampuan_bahasa_asing);
+        // dd($pengalamanKerja, $kemampuanBahasaAsing);
+        // dd($kemampuanBahasaAsing);
 
         $birtDate = $request->tanggal_lahir;
         $formatedBirtDate = Carbon::parse($birtDate)->format('Y-m-d');
@@ -82,6 +89,35 @@ class AlternatifController extends Controller
                 'portofolio' => !is_null($dataFile['portofolio']) ? $dataFile['portofolio'] : $biodata->portofolio,
             ]
         );
+
+        // dd($pengalamanKerja[0]->perusahaan);
+        // dd($pengalamanKerja);
+
+        if ($pengalamanKerja !== null) {
+            foreach ($pengalamanKerja as $dataItemPengalamanKerja) {
+                // dd($dataItemPengalamanKerja->perusahaan);
+                PengalamanKerja::updateOrCreate(
+                    [
+                        'id_user' => Auth::user()->id_user,
+                        'perusahaan' => $dataItemPengalamanKerja->perusahaan,
+                        'jabatan' => $dataItemPengalamanKerja->jabatan,
+                        'lama_kerja' => $dataItemPengalamanKerja->lamaKerja,
+                    ]
+                );
+            };
+        }
+
+        if ($kemampuanBahasaAsing !== null) {
+            foreach ($kemampuanBahasaAsing as $dataKemampuanBahasaAsing) {
+                KemampuanBahasaAsing::updateOrCreate(['id_user' => Auth::user()->id_user,
+                    'bahasa' => $dataKemampuanBahasaAsing->bahasa,
+                    'read' => $dataKemampuanBahasaAsing->read,
+                    'write' => $dataKemampuanBahasaAsing->write,
+                    'speak' => $dataKemampuanBahasaAsing->speak,
+                    ]
+                );
+            };
+        }
 
         return redirect()->route('alternatif-biodata');
     }
