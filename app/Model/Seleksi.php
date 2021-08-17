@@ -15,4 +15,9 @@ class Seleksi extends Model
         'id_kriteria',
         'nilai'
     ];
+
+    public function user()
+    {
+        return $this->belongsTo('App\Model\User', 'id_user', 'id_user');
+    }
 }

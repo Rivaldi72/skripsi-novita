@@ -72,39 +72,30 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td> 1 </td>
-                                        <td> Novita Pratiwi </td>
-                                        <td> Test 123 </td>
-                                        <td> Pertama (1) </td>
-                                        <td>
-                                            <button type="button" class="btn btn-icon btn-warning btn-relief-warning mr-1 mb-1 waves-effect waves-light editBtn" data-toggle="modal" data-target="#editBarang">
-                                                <i class="feather icon-eye"></i>
-                                            </button>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td> 2 </td>
-                                        <td> Novita Pratiwi </td>
-                                        <td> Test 123 </td>
-                                        <td> Kedua (2) </td>
-                                        <td>
-                                            <button type="button" class="btn btn-icon btn-warning btn-relief-warning mr-1 mb-1 waves-effect waves-light editBtn" data-toggle="modal" data-target="#editBarang">
-                                                <i class="feather icon-eye"></i>
-                                            </button>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td> 3 </td>
-                                        <td> Novita Pratiwi </td>
-                                        <td> Test 123 </td>
-                                        <td> Ketiga (3) </td>
-                                        <td>
-                                            <button type="button" class="btn btn-icon btn-warning btn-relief-warning mr-1 mb-1 waves-effect waves-light editBtn" data-toggle="modal" data-target="#editBarang">
-                                                <i class="feather icon-eye"></i>
-                                            </button>
-                                        </td>
-                                    </tr>
+                                    @foreach ($dataSeleksiNilai as $number => $seleksiNilai)
+                                        <tr>
+                                            <td> {{ $number + 1 }} </td>
+                                            <td> {{ $seleksiNilai->nama }} </td>
+                                            <td> {{ $seleksiNilai->seleksiNilai->sum('nilai') }} </td>
+                                            <td> {{ $seleksiNilai->nama }} </td>
+                                            <td>
+                                                <a href="{{ route('seleksi-input-nilai', $seleksiNilai->id_user)}}" class="btn btn-icon btn-warning btn-relief-warning mr-1 mb-1 waves-effect waves-light editBtn">
+                                                    <i class="feather icon-eye"></i>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                        {{-- <tr>
+                                            <td> {{ $number + 1 }} </td>
+                                            <td> {{ $pelamar->nama }} </td>
+                                            <td> {{ $pelamar->created_at->format('d F Y') }} </td>
+                                            <td>
+                                                <a href="{{ route('alternatif-detail', $pelamar->id_user)}}" class="btn btn-icon btn-warning btn-relief-warning mr-1 mb-1 waves-effect waves-light editBtn">
+                                                    <i class="feather icon-eye"></i>
+                                                </a>
+                                            </td>
+                                        </tr> --}}
+                                    @endforeach
+
                                 </tbody>
                             </table>
                         </div>

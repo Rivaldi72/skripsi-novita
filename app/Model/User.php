@@ -23,7 +23,12 @@ class User extends Authenticatable
     ];
     
     protected $hidden = [
-        'password', 'remember_token',
+        'password',
+        'remember_token',
     ];
 
+    public function seleksiNilai()
+    {
+        return $this->hasMany('App\Model\Seleksi', 'id_user', 'id_user');
+    }
 }

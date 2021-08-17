@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Model\User;
 use App\Model\Biodata;
+use App\Model\Seleksi;
 use App\Model\PengalamanKerja;
 use App\Model\KemampuanBahasaAsing;
 use Auth;
@@ -119,6 +120,123 @@ class AlternatifController extends Controller
             };
         }
 
+        return $this->biodataNilai();
+    }
+
+    public function biodataNilai()
+    {
+        // $biodata = Biodata::where('id_user', 3)->with(['pengalamanKerja', 'kemampuanBahasaAsing'])->first();
+        $biodata = Biodata::where('id_user', Auth::user()->id_user)->with(['pengalamanKerja', 'kemampuanBahasaAsing'])->first();
+
+        // Mengambil Detail Umur
+        // \Carbon\Carbon::parse($user->birth)->diff(\Carbon\Carbon::now())->format('%y Tahun, %m bulan dan %d hari');
+        
+        if ($biodata != null) {
+            $umur = \Carbon\Carbon::parse($biodata->tanggal_lahir)->diff(\Carbon\Carbon::now())->format('%y');
+            $pendidikanTerakhir = $biodata->pendidikan_terakhir;
+            $ipk = $biodata->ipk;
+            $kemampuanBahasaAsing = $biodata->kemampuanBahasaAsing;
+            $pengalamanKerja = $biodata->pengalamanKerja->sum('lama_kerja');
+
+            if ($umur >= 19 and $umur <= 24) {
+                $nilaiUmur = 5;
+            } elseif($umur >= 25 and $umur <= 30) {
+                $nilaiUmur = 4;
+            } elseif ($umur >= 30 and $umur <= 35) {
+                $nilaiUmur = 3;
+            } else {
+                $nilaiUmur = 0;
+            }
+    
+            if ($pendidikanTerakhir == 'S1' or $pendidikanTerakhir == 'S2' or $pendidikanTerakhir == 'S3') {
+                $nilaiPendidikanTerakhir = 5;
+            } elseif($pendidikanTerakhir == 'D3') {
+                $nilaiPendidikanTerakhir = 3;
+            } elseif ($pendidikanTerakhir == 'SMA') {
+                $nilaiPendidikanTerakhir = 2;
+            } else {
+                $nilaiPendidikanTerakhir = 0;
+            }
+    
+            if ($ipk >= 3.60 and $ipk <= 4.00) {
+                $nilaiIpk = 5;
+            } elseif($ipk >= 2.76 and $ipk <= 3.50) {
+                $nilaiIpk = 3;
+            } elseif ($ipk >= 2.00 and $ipk <= 2.75) {
+                $nilaiIpk = 2;
+            } else {
+                $nilaiIpk = 0;
+            }
+    
+            $nilaiKemampuanBahasaAsing = 0;
+            if ($kemampuanBahasaAsing->count() != 0) {
+                foreach ($kemampuanBahasaAsing as $key => $value) {
+                    if ($value->bahasa == 'Arab') {
+                        $nilaiKemampuanBahasaAsing += 4;
+                    } elseif ($value->bahasa == 'Inggris') {
+                        $nilaiKemampuanBahasaAsing += 3;
+                    } else {
+                        $nilaiKemampuanBahasaAsing += 0;
+                    }
+                }
+            }
+    
+            if ($pengalamanKerja <= 12) {
+                $nilaiPengalamanKerja = 3;
+            } elseif($pengalamanKerja > 12) {
+                $nilaiPengalamanKerja = 4;
+            } else {
+                $nilaiPengalamanKerja = 0;
+            }
+    
+            // dd($umur, $nilaiUmur, $pendidikanTerakhir, $nilaiPendidikanTerakhir, $ipk, $nilaiIpk, $kemampuanBahasaAsing->toArray(), $nilaiKemampuanBahasaAsing, $pengalamanKerja, $nilaiPengalamanKerja, $kemampuanBahasaAsing, $biodata->toArray());
+    
+            Seleksi::updateOrCreate(
+                [
+                    'id_user' => Auth::user()->id_user,
+                    // 'id_user' => 3,
+                    'id_kriteria' => 1,
+                    'nilai' => $nilaiPendidikanTerakhir,
+                ]
+            );
+    
+            Seleksi::updateOrCreate(
+                [
+                    'id_user' => Auth::user()->id_user,
+                    // 'id_user' => 3,
+                    'id_kriteria' => 2,
+                    'nilai' => $nilaiUmur,
+                ]
+            );
+    
+            Seleksi::updateOrCreate(
+                [
+                    'id_user' => Auth::user()->id_user,
+                    // 'id_user' => 3,
+                    'id_kriteria' => 3,
+                    'nilai' => $nilaiIpk,
+                ]
+            );
+    
+            Seleksi::updateOrCreate(
+                [
+                    'id_user' => Auth::user()->id_user,
+                    // 'id_user' => 3,
+                    'id_kriteria' => 4,
+                    'nilai' => $nilaiKemampuanBahasaAsing,
+                ]
+            );
+    
+            Seleksi::updateOrCreate(
+                [
+                    'id_user' => Auth::user()->id_user,
+                    // 'id_user' => 3,
+                    'id_kriteria' => 6,
+                    'nilai' => $nilaiPengalamanKerja,
+                ]
+            );
+        }
+        
         return redirect()->route('alternatif-biodata');
     }
 }

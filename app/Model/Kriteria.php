@@ -16,4 +16,9 @@ class Kriteria extends Model
         'bobot',
         'jenis'
     ];
+
+    public function nilai()
+    {
+        return $this->hasMany('App\Model\Seleksi', 'id_kriteria', 'id_kriteria');
+    }
 }

@@ -56,13 +56,13 @@
                     <div class="card-content">
                         <div class="card-body card-dashboard">
                             <div class="table-responsive" style="overflow-x: hidden;">
-                                <table id="datatable" class="table zero-configuration table-striped table-bordered text-center">
+                                <table id="datatable" class="table zero-configuration table-striped table-bordered text-left">
                                     <thead>
                                         <tr>
-                                            <th>No</th>
+                                            <th class="text-center">No</th>
                                             <th>Kriteria</th>
                                             <th>Jenis</th>
-                                            <th>Kepentingan</th>
+                                            <th class="text-center">Kepentingan</th>
                                             <th>Bobot</th>
                                             <th>Aksi</th>
                                         </tr>
@@ -70,10 +70,10 @@
                                     <tbody>
                                         @foreach ($kriteria as $number => $kriteria)
                                             <tr>
-                                                <td> {{ $number + 1 }} </td>
+                                                <td class="text-center"> {{ $number + 1 }} </td>
                                                 <td> {{ $kriteria->kriteria }} </td>
                                                 <td> {{ ucfirst($kriteria->jenis) }} </td>
-                                                <td> {{ $kriteria->kepentingan }} </td>
+                                                <td class="text-center"> {{ $kriteria->kepentingan }} </td>
                                                 <td> {{ $kriteria->bobot ?? 'Data Belum diisi' }} </td>
                                                 <td>
                                                     <button type="button" class="btn btn-icon btn-warning btn-relief-warning mr-1 mb-1 waves-effect waves-light editBtn" data-toggle="modal" data-target="#editBarang">

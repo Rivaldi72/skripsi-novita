@@ -46,31 +46,31 @@
                                 <div class="col-12 col-md-2">
                                     <fieldset class="form-group">
                                         <label for="usia">Usia (Benefit)</label>
-                                        <input type="text" class="form-control" id="usia" placeholder="Nilai Usia" disabled>
+                                        <input type="text" class="form-control" id="usia" placeholder="Nilai Usia" disabled value="{{ $dataDetailNilai }}">
                                     </fieldset>
                                 </div>
                                 <div class="col-12 col-md-2">
                                     <fieldset class="form-group">
                                         <label for="pendidikan">Pendidikan Terakhir (Benefit)</label>
-                                        <input type="text" class="form-control" id="pendidikan" placeholder="Nilai Pendidikan Terakhir" disabled>
+                                        <input type="text" class="form-control" id="pendidikan" placeholder="Nilai Pendidikan Terakhir" disabled value="{{ $dataDetailNilai }}">
                                     </fieldset>
                                 </div>
                                 <div class="col-12 col-md-2">
                                     <fieldset class="form-group">
                                         <label for="ipk">IPK (Cost)</label>
-                                        <input type="text" class="form-control" id="ipk" placeholder="Nilai IPK" disabled>
+                                        <input type="text" class="form-control" id="ipk" placeholder="Nilai IPK" disabled value="{{ $dataDetailNilai }}">
                                     </fieldset>
                                 </div>
                                 <div class="col-12 col-md-3">
                                     <fieldset class="form-group">
                                         <label for="bahasa">Kemampuan Bahasa Asing (Benefit)</label>
-                                        <input type="text" class="form-control" id="bahasa" placeholder="Nilai Kemampuan Bahasa Asing" disabled>
+                                        <input type="text" class="form-control" id="bahasa" placeholder="Nilai Kemampuan Bahasa Asing" disabled value="{{ $dataDetailNilai }}">
                                     </fieldset>
                                 </div>
                                 <div class="col-12 col-md-3">
                                     <fieldset class="form-group">
                                         <label for="kerja">Pengalaman Kerja (Benefit)</label>
-                                        <input type="text" class="form-control" id="kerja" placeholder="Nilai Pengalaman Kerja" disabled>
+                                        <input type="text" class="form-control" id="kerja" placeholder="Nilai Pengalaman Kerja" disabled value="{{ $dataDetailNilai }}">
                                     </fieldset>
                                 </div>
                                 <div class="col-12 col-md-6">

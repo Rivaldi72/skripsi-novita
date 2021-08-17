@@ -273,9 +273,10 @@
                                                 <option {{ $biodata->pendidikan_terakhir == "SD"  ? 'selected' : "" }} value="SD">Sekolah Dasar (Setara)</option>
                                                 <option {{ $biodata->pendidikan_terakhir == "SMP"  ? 'selected' : "" }} value="SMP">Sekolah Menengah Pertama (Setara)</option>
                                                 <option {{ $biodata->pendidikan_terakhir == "SMA"  ? 'selected' : "" }} value="SMA">Sekolah Menengah Atas / Kejuruan (Setara)</option>
-                                                <option {{ $biodata->pendidikan_terakhir == "S1"  ? 'selected' : "" }} value="S1">Strata-I (Setara)</option>
-                                                <option {{ $biodata->pendidikan_terakhir == "S2"  ? 'selected' : "" }} value="S2">Strata-II (Setara)</option>
-                                                <option {{ $biodata->pendidikan_terakhir == "S3"  ? 'selected' : "" }} value="S3">Strata-III (Setara)</option>
+                                                <option {{ $biodata->pendidikan_terakhir == "D3"  ? 'selected' : "" }} value="D3">Diploma-3 (Setara)</option>
+                                                <option {{ $biodata->pendidikan_terakhir == "S1"  ? 'selected' : "" }} value="S1">Strata-1 (Setara)</option>
+                                                <option {{ $biodata->pendidikan_terakhir == "S2"  ? 'selected' : "" }} value="S2">Strata-2 (Setara)</option>
+                                                <option {{ $biodata->pendidikan_terakhir == "S3"  ? 'selected' : "" }} value="S3">Strata-3 (Setara)</option>
                                             </select>
                                         </fieldset>
                                     </div>
@@ -340,8 +341,13 @@
                                                 <div class="row align-items-center">
                                                     <div class="col-4">
                                                         <fieldset class="form-group">
-                                                            <label for="basicInput">Bahasa</label>
-                                                            <input type="text" class="form-control" id="bahasa" placeholder="Bahasa" value="">
+                                                            <label for="basicInput">Read</label>
+                                                            <select class="custom-select" id="bahasa">
+                                                                <option selected="" value="0">Pilih</option>
+                                                                <option value="Arab">Arab</option>
+                                                                <option value="Inggris">Inggris</option>
+                                                                <option value="Lainnya">Lainnya</option>
+                                                            </select>
                                                         </fieldset>
                                                     </div>
                                                     <div class="col-2">
