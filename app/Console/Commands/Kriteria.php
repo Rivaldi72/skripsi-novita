@@ -62,30 +62,30 @@ class Kriteria extends Command
         $kriteria->save();
 
         $kriteria = new \App\Model\Kriteria;
-        $kriteria->kriteria = 'Kemampuan Bahasa Asing (Inggris, Arab)';
+        $kriteria->kriteria = 'Kemampuan Bahasa Asing';
         $kriteria->bobot = 0.1191;
-        $kriteria->jenis = 'cost';
+        $kriteria->jenis = 'benefit';
         $kriteria->kepentingan = 5;
         $kriteria->save();
 
         $kriteria = new \App\Model\Kriteria;
         $kriteria->kriteria = 'Wawancara';
         $kriteria->bobot = 0.0802;
-        $kriteria->jenis = 'cost';
+        $kriteria->jenis = 'benefit';
         $kriteria->kepentingan = 4;
         $kriteria->save();
 
         $kriteria = new \App\Model\Kriteria;
         $kriteria->kriteria = 'Pengalaman Kerja';
         $kriteria->bobot = 0.0463;
-        $kriteria->jenis = 'cost';
+        $kriteria->jenis = 'benefit';
         $kriteria->kepentingan = 3;
         $kriteria->save();
 
         $kriteria = new \App\Model\Kriteria;
         $kriteria->kriteria = 'Psikotest';
         $kriteria->bobot = 0.0192;
-        $kriteria->jenis = 'cost';
+        $kriteria->jenis = 'benefit';
         $kriteria->kepentingan = 2;
         $kriteria->save();
     }

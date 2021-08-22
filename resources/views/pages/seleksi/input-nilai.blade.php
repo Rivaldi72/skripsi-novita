@@ -43,50 +43,44 @@
                     <div class="card-content">
                         <div class="card-body card-dashboard">
                             <div class="row">
-                                <div class="col-12 col-md-2">
-                                    <fieldset class="form-group">
-                                        <label for="usia">Usia (Benefit)</label>
-                                        <input type="text" class="form-control" id="usia" placeholder="Nilai Usia" disabled value="{{ $dataDetailNilai }}">
-                                    </fieldset>
-                                </div>
-                                <div class="col-12 col-md-2">
-                                    <fieldset class="form-group">
-                                        <label for="pendidikan">Pendidikan Terakhir (Benefit)</label>
-                                        <input type="text" class="form-control" id="pendidikan" placeholder="Nilai Pendidikan Terakhir" disabled value="{{ $dataDetailNilai }}">
-                                    </fieldset>
-                                </div>
-                                <div class="col-12 col-md-2">
-                                    <fieldset class="form-group">
-                                        <label for="ipk">IPK (Cost)</label>
-                                        <input type="text" class="form-control" id="ipk" placeholder="Nilai IPK" disabled value="{{ $dataDetailNilai }}">
-                                    </fieldset>
-                                </div>
-                                <div class="col-12 col-md-3">
-                                    <fieldset class="form-group">
-                                        <label for="bahasa">Kemampuan Bahasa Asing (Benefit)</label>
-                                        <input type="text" class="form-control" id="bahasa" placeholder="Nilai Kemampuan Bahasa Asing" disabled value="{{ $dataDetailNilai }}">
-                                    </fieldset>
-                                </div>
-                                <div class="col-12 col-md-3">
-                                    <fieldset class="form-group">
-                                        <label for="kerja">Pengalaman Kerja (Benefit)</label>
-                                        <input type="text" class="form-control" id="kerja" placeholder="Nilai Pengalaman Kerja" disabled value="{{ $dataDetailNilai }}">
-                                    </fieldset>
-                                </div>
-                                <div class="col-12 col-md-6">
-                                    <fieldset class="form-group">
-                                        <label for="wawancara">Wawancara (Benefit)</label>
-                                        <input type="number" class="form-control" id="wawancara" placeholder="Masukkan Nilai Wawancara">
-                                    </fieldset>
-                                </div>
-                                <div class="col-12 col-md-6">
-                                    <fieldset class="form-group">
-                                        <label for="psikotes">Psikotes (Benefit)</label>
-                                        <input type="number" class="form-control" id="psikotes" placeholder="Masukkan Nilai Psikotes">
-                                    </fieldset>
-                                </div>
-                                <div class="col-12 col-md-12">
-                                    <button type="button" class="btn btn-relief-success btn-block waves-effect waves-light">Simpan</button>
+                                <div class="col-12">
+                                    <form action="{{ route('input-nilai-store', $id) }}" method="POST" id="dataForm">
+                                        {{ csrf_field() }}
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <div class="row justify-content-between">
+                                                    @foreach ($dataDetailNilai as $key => $item)
+                                                        <div class="col-12 col-md-4">
+                                                            <fieldset class="form-group">
+                                                                <label for="{{ $item->id_kriteria }}" class="text-capitalize">{{ $item->kriteria }} ({{ $item->jenis }})</label>
+                                                                <input type="text" class="form-control" name="{{ $item->id_kriteria }}" placeholder="Nilai {{ $item->kriteria }}" disabled value="{{ $item->nilai[0]->nilai }}">
+                                                            </fieldset>
+                                                        </div>
+                                                    @endforeach
+                                                </div>
+                                            </div>
+                                            <div class="col-12">
+                                                <div class="row justify-content-between">
+                                                    @foreach ($dataDetailNilaiKosong as $key => $item)
+                                                        <div class="col-12 col-md">
+                                                            <fieldset class="form-group">
+                                                                <label for="{{ $item->id_kriteria }}" class="text-capitalize">{{ $item->kriteria }} ({{ $item->jenis }})</label>
+                                                                <input type="hidden" name="id{{ str_replace(" ", "", $item->kriteria) }}" value="{{ $item->id_kriteria }}">
+                                                                <input type="number" class="form-control" name="nilai{{ str_replace(" ", "", $item->kriteria) }}" placeholder="Masukkan Nilai {{ $item->kriteria }}" value="">
+                                                            </fieldset>
+                                                        </div>
+                                                    @endforeach
+                                                </div>
+                                            </div>
+                                        </div>
+                                        @if ($dataDetailNilaiKosong->count() != 0)
+                                            <div class="row">
+                                                <div class="col-12 col-md-12">
+                                                    <button type="submit" class="btn btn-relief-success btn-block waves-effect waves-light">Simpan</button>
+                                                </div>   
+                                            </div>
+                                        @endif
+                                    </form>
                                 </div>
                             </div>
                         </div>

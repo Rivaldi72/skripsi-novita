@@ -56,7 +56,7 @@
                         <tr>
                             <th>No</th>
                             <th>Nama Pelamar</th>
-                            <th>Nilai</th>
+                            <th>Nilai Akhir</th>
                             <th>Keterangan</th>
                         </tr>
                     </thead>

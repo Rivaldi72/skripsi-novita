@@ -48,6 +48,7 @@ Route::group(['middleware' => ['auth', 'role:admin']], function () {
     Route::get('/detail-kriteria', 'KriteriaController@detail')->name('kriteria-detail');
     Route::get('/seleksi', 'SeleksiController@index')->name('seleksi-index');
     Route::get('/seleksi/input-nilai/{id}', 'SeleksiController@inputNilai')->name('seleksi-input-nilai');
+    Route::post('/seleksi/input-nilai/store/{id}', 'SeleksiController@inputNilaiStore')->name('input-nilai-store');
 });
 
 Route::get('contoh-ui', function () {
