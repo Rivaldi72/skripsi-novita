@@ -27,6 +27,11 @@
                 <h1 class="content-header-title mb-0 mt-2">Penerapan Metode AHP dan TOPSIS Pada Seleksi Penerimaan Karyawan Baru Pada Ma'had Abu Ubaidah Bin Al-Jarrah Medan</h1>
             </div>
         </div>
+        <div class="row w-100">
+            <div class="col-12 text-center">
+                <img src="{{ url("gedung_mahad.jpg") }}" alt="Gambar Gedung Mahad">
+            </div>
+        </div>
     </div>
 </div>
 

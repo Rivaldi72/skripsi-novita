@@ -1,7 +1,11 @@
 @extends('layouts.app')
 
 @section('custom_styles')
-
+<style>
+    .dataTables_filter {
+        display: none;
+    }
+</style>
 @endsection
 
 @section('prepend_script')
@@ -10,7 +14,33 @@
 
 @section('append_script')
     <script>
-        $('.zero-configuration').DataTable();
+        $(document).ready( function () {
+            var table = $('.zero-configuration').DataTable({
+                language: {
+                    search: "Cari data: ",
+                    searchPlaceholder: "Cari..."
+                }
+            });
+            addTableButtons();
+
+            $("#searchTextBox").keyup(function() {
+                table.search($(this).val()).draw() ;
+            }); 
+        } );
+
+        function addTableButtons() {
+            var table = $('.zero-configuration').DataTable();
+        
+            new $.fn.dataTable.Buttons( table, {
+                    buttons: [
+                        'copy', 'csv', 'excel', 'pdf', 'print'
+                    ]
+                } 
+            );
+            
+            table.buttons( 0, null ).containers().appendTo( '.button-datatable-print' );
+        }
+        
     </script>
 @endsection
 
@@ -35,10 +65,13 @@
     </div>
 </div>
 <div class="card p-2">
-    <div class="row justify-content-end">
+    <div class="row justify-content-between">
+        <div class="col-2 button-datatable-print">
+
+        </div>
         <div class="col-2">
             <fieldset class="position-relative has-icon-left input-divider-left">
-                <input type="text" class="form-control" id="iconLeft3" placeholder="Search">
+                <input type="text" class="form-control" id="searchTextBox" placeholder="Search">
                 <div class="form-control-position">
                     <i class="feather icon-search"></i>
                 </div>
@@ -57,39 +90,24 @@
                             <th>No</th>
                             <th>Nama Pelamar</th>
                             <th>Nilai Akhir</th>
+                            <th>Peringkat</th>
                             <th>Keterangan</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td> 1 </td>
-                            <td> Novita Pratiwi </td>
-                            <td> Test 123 </td>
-                            <td>Tidak Ada</td>
-                        </tr>
-                        <tr>
-                            <td> 2 </td>
-                            <td> Novita Pratiwi </td>
-                            <td> Test 123 </td>
-                            <td>Tidak Ada</td>
-                        </tr>
-                        <tr>
-                            <td> 3 </td>
-                            <td> Novita Pratiwi </td>
-                            <td> Test 123 </td>
-                            <td>Tidak Ada</td>
-                        </tr>
+                        @foreach ($dataUser as $number => $pelamar)
+                            <tr>
+                                <td> {{ $number + 1 }} </td>
+                                <td> {{ $pelamar->nama }} </td>
+                                <td> {{ $dataNilai[$number] }} </td>
+                                <td> {{  array_search($dataNilaiAwal[$number], $dataNilaiSort) + 1 }} </td>
+                                <td> {{ $pelamar->jabatan }} </td>
+                            </tr>
+                        @endforeach
                     </tbody>
                 </table>
             </div>
         </div>
-    </div>
-</div>
-
-<div class="row">
-    <div class="col-12">
-        <button type="button" class="btn btn-relief-success mr-1 mb-1">Download</button>
-        <button type="button" class="btn btn-relief-success mr-1 mb-1">Print</button>
     </div>
 </div>
 @endsection

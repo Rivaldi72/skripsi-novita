@@ -1,7 +1,11 @@
 @extends('layouts.app')
 
 @section('custom_styles')
-
+<style>
+    .dataTables_filter {
+        display: none;
+    }
+</style>
 @endsection
 
 @section('prepend_script')
@@ -10,7 +14,18 @@
 
 @section('append_script')
 <script>
-    $('.zero-configuration').DataTable();
+    $(document).ready( function () {
+        var table = $('.zero-configuration').DataTable({
+            language: {
+                search: "Cari data: ",
+                searchPlaceholder: "Cari..."
+            }
+        });
+
+        $("#searchTextBox").keyup(function() {
+            table.search($(this).val()).draw() ;
+        }); 
+    } );
 </script>
 @endsection
 
@@ -40,12 +55,12 @@
         <div class="card p-2">
             <div class="row justify-content-end">
                 <div class="col-2">
-                    {{-- <fieldset class="position-relative has-icon-left input-divider-left">
-                        <input type="text" class="form-control" id="iconLeft3" placeholder="Search">
+                    <fieldset class="position-relative has-icon-left input-divider-left">
+                        <input type="text" class="form-control" id="searchTextBox" placeholder="Search">
                         <div class="form-control-position">
                             <i class="feather icon-search"></i>
                         </div>
-                    </fieldset> --}}
+                    </fieldset>
                 </div>
             </div>
         </div>
@@ -64,22 +79,22 @@
                                             <th>Jenis</th>
                                             <th class="text-center">Kepentingan</th>
                                             <th>Bobot</th>
-                                            <th>Aksi</th>
+                                            {{-- <th>Aksi</th> --}}
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @foreach ($kriteria as $number => $kriteria)
+                                        @foreach ($dataKriteria as $number => $kriteria)
                                             <tr>
                                                 <td class="text-center"> {{ $number + 1 }} </td>
                                                 <td> {{ $kriteria->kriteria }} </td>
                                                 <td> {{ ucfirst($kriteria->jenis) }} </td>
                                                 <td class="text-center"> {{ $kriteria->kepentingan }} </td>
                                                 <td> {{ $kriteria->bobot ?? 'Data Belum diisi' }} </td>
-                                                <td>
+                                                {{-- <td>
                                                     <button type="button" class="btn btn-icon btn-warning btn-relief-warning mr-1 mb-1 waves-effect waves-light editBtn" data-toggle="modal" data-target="#editBarang">
                                                         <i class="feather icon-eye"></i>
                                                     </button>
-                                                </td>
+                                                </td> --}}
                                             </tr>
                                         @endforeach
                                     </tbody>

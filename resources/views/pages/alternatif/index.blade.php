@@ -1,7 +1,11 @@
 @extends('layouts.app')
 
 @section('custom_styles')
-
+<style>
+    .dataTables_filter {
+        display: none;
+    }
+</style>
 @endsection
 
 @section('prepend_script')
@@ -11,7 +15,18 @@
 
 @section('append_script')
     <script>
-        $('.zero-configuration').DataTable();
+        $(document).ready( function () {
+            var table = $('.zero-configuration').DataTable({
+                language: {
+                    search: "Cari data: ",
+                    searchPlaceholder: "Cari..."
+                }
+            });
+
+            $("#searchTextBox").keyup(function() {
+                table.search($(this).val()).draw() ;
+            }); 
+        } );
     </script>
 @endsection
 
@@ -43,7 +58,7 @@
             <div class="row justify-content-end">
                 <div class="col-2">
                     <fieldset class="position-relative has-icon-left input-divider-left">
-                        <input type="text" class="form-control" id="iconLeft3" placeholder="Search">
+                        <input type="text" class="form-control" id="searchTextBox" placeholder="Search">
                         <div class="form-control-position">
                             <i class="feather icon-search"></i>
                         </div>

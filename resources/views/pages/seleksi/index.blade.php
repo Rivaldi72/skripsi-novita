@@ -1,7 +1,11 @@
 @extends('layouts.app')
 
 @section('custom_styles')
-
+<style>
+    .dataTables_filter {
+        display: none;
+    }
+</style>
 @endsection
 
 @section('prepend_script')
@@ -10,7 +14,18 @@
 
 @section('append_script')
 <script>
-    $('.zero-configuration').DataTable();
+    $(document).ready( function () {
+        var table = $('.zero-configuration').DataTable({
+            language: {
+                search: "Cari data: ",
+                searchPlaceholder: "Cari..."
+            }
+        });
+
+        $("#searchTextBox").keyup(function() {
+            table.search($(this).val()).draw() ;
+        }); 
+    } );
 </script>
 @endsection
 
@@ -48,7 +63,7 @@
                 </div>
                 <div class="col-2">
                     <fieldset class="position-relative has-icon-left input-divider-left">
-                        <input type="text" class="form-control" id="iconLeft3" placeholder="Search">
+                        <input type="text" class="form-control" id="searchTextBox" placeholder="Search">
                         <div class="form-control-position">
                             <i class="feather icon-search"></i>
                         </div>
@@ -66,8 +81,7 @@
                                     <tr>
                                         <th>No</th>
                                         <th>Alternatif</th>
-                                        <th>Nilai Akhir</th>
-                                        <th>Peringkat</th>
+                                        <th>Nilai Sementara</th>
                                         <th>Aksi</th>
                                     </tr>
                                 </thead>
@@ -77,23 +91,12 @@
                                             <td> {{ $number + 1 }} </td>
                                             <td> {{ $seleksiNilai->nama }} </td>
                                             <td> {{ $seleksiNilai->seleksiNilai->sum('nilai') }} </td>
-                                            <td> {{ $seleksiNilai->nama }} </td>
                                             <td>
                                                 <a href="{{ route('seleksi-input-nilai', $seleksiNilai->id_user)}}" class="btn btn-icon btn-warning btn-relief-warning mr-1 mb-1 waves-effect waves-light editBtn">
                                                     <i class="feather icon-eye"></i>
                                                 </a>
                                             </td>
                                         </tr>
-                                        {{-- <tr>
-                                            <td> {{ $number + 1 }} </td>
-                                            <td> {{ $pelamar->nama }} </td>
-                                            <td> {{ $pelamar->created_at->format('d F Y') }} </td>
-                                            <td>
-                                                <a href="{{ route('alternatif-detail', $pelamar->id_user)}}" class="btn btn-icon btn-warning btn-relief-warning mr-1 mb-1 waves-effect waves-light editBtn">
-                                                    <i class="feather icon-eye"></i>
-                                                </a>
-                                            </td>
-                                        </tr> --}}
                                     @endforeach
 
                                 </tbody>

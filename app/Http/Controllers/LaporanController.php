@@ -12,22 +12,54 @@ class LaporanController extends Controller
 {
     public function index()
     {
-        // self::maktriksTernormalisasi();
-        // dd(self::maktriksKeputusanTernormalisasi(1), self::maktriksTernormalisasi(1), self::matriksKeputusanTernormalisasiTerbobot(1), self::solusiIdealPositifDanNegatif(1), self::jarakNilaiIdeal(1, 1));
-        dd([
-            'maktriksTernormalisasi' => self::maktriksTernormalisasi(1),
-            'matriksKeputusanTernormalisasiTerbobot' => self::matriksKeputusanTernormalisasiTerbobot(1),
-            'solusiIdealPositifDanNegatif(1)' => self::solusiIdealPositifDanNegatif(1),
-            'solusiIdealPositifDanNegatif(2)' => self::solusiIdealPositifDanNegatif(2),
-            'solusiIdealPositifDanNegatif(3)' => self::solusiIdealPositifDanNegatif(3),
-            'solusiIdealPositifDanNegatif(4)' => self::solusiIdealPositifDanNegatif(4),
-            'solusiIdealPositifDanNegatif(5)' => self::solusiIdealPositifDanNegatif(5),
-            'solusiIdealPositifDanNegatif(6)' => self::solusiIdealPositifDanNegatif(6),
-            'solusiIdealPositifDanNegatif(7)' => self::solusiIdealPositifDanNegatif(7),
-            'jarakNilaiIdeal' => self::jarakNilaiIdeal(),
-            'nilaiPreferensi' => self::nilaiPreferensi(),
-        ]);
-        return view('pages.laporan.index');
+        // dd([
+        //     'maktriksKeputusanTernormalisasi1' => self::maktriksKeputusanTernormalisasi(1),
+        //     'maktriksKeputusanTernormalisasi2' => self::maktriksKeputusanTernormalisasi(2),
+        //     'maktriksKeputusanTernormalisasi3' => self::maktriksKeputusanTernormalisasi(3),
+        //     'maktriksKeputusanTernormalisasi4' => self::maktriksKeputusanTernormalisasi(4),
+        //     'maktriksKeputusanTernormalisasi5' => self::maktriksKeputusanTernormalisasi(5),
+        //     'maktriksKeputusanTernormalisasi6' => self::maktriksKeputusanTernormalisasi(6),
+        //     'maktriksKeputusanTernormalisasi7' => self::maktriksKeputusanTernormalisasi(7),
+        //     'maktriksTernormalisasi1' => self::maktriksTernormalisasi(1),
+        //     'maktriksTernormalisasi2' => self::maktriksTernormalisasi(2),
+        //     'maktriksTernormalisasi3' => self::maktriksTernormalisasi(3),
+        //     'maktriksTernormalisasi4' => self::maktriksTernormalisasi(4),
+        //     'maktriksTernormalisasi5' => self::maktriksTernormalisasi(5),
+        //     'maktriksTernormalisasi6' => self::maktriksTernormalisasi(6),
+        //     'maktriksTernormalisasi7' => self::maktriksTernormalisasi(7),
+        //     'matriksKeputusanTernormalisasiTerbobot1' => self::matriksKeputusanTernormalisasiTerbobot(1),
+        //     'matriksKeputusanTernormalisasiTerbobot2' => self::matriksKeputusanTernormalisasiTerbobot(2),
+        //     'matriksKeputusanTernormalisasiTerbobot3' => self::matriksKeputusanTernormalisasiTerbobot(3),
+        //     'matriksKeputusanTernormalisasiTerbobot4' => self::matriksKeputusanTernormalisasiTerbobot(4),
+        //     'matriksKeputusanTernormalisasiTerbobot5' => self::matriksKeputusanTernormalisasiTerbobot(5),
+        //     'matriksKeputusanTernormalisasiTerbobot6' => self::matriksKeputusanTernormalisasiTerbobot(6),
+        //     'matriksKeputusanTernormalisasiTerbobot7' => self::matriksKeputusanTernormalisasiTerbobot(7),
+        //     'solusiIdealPositifDanNegatif1' => self::solusiIdealPositifDanNegatif(1),
+        //     'solusiIdealPositifDanNegatif2' => self::solusiIdealPositifDanNegatif(2),
+        //     'solusiIdealPositifDanNegatif3' => self::solusiIdealPositifDanNegatif(3),
+        //     'solusiIdealPositifDanNegatif4' => self::solusiIdealPositifDanNegatif(4),
+        //     'solusiIdealPositifDanNegatif5' => self::solusiIdealPositifDanNegatif(5),
+        //     'solusiIdealPositifDanNegatif6' => self::solusiIdealPositifDanNegatif(6),
+        //     'solusiIdealPositifDanNegatif7' => self::solusiIdealPositifDanNegatif(7),
+        //     'jarakNilaiIdeal' => self::jarakNilaiIdeal(),
+        //     'nilaiPreferensi' => self::nilaiPreferensi(),
+        // ]);
+
+        $dataUser = User::where('jabatan', 'pelamar')->get();
+        $dataNilaiAwal = self::nilaiPreferensi();
+        $dataNilai = self::nilaiPreferensi();
+        arsort($dataNilai);
+        $dataNilaiSort = [];
+        $i = 0;
+
+        foreach ($dataNilai as $key => $value) {
+            $dataNilaiSort[$i] = $value;
+            $i++;
+        }
+        // dd( $dataNilaiSort);
+        $dataPeringkat = [];
+
+        return view('pages.laporan.index', compact('dataUser', 'dataNilaiAwal', 'dataNilai', 'dataNilaiSort'));
     }
 
     public function maktriksKeputusanTernormalisasi($id_kriteria)
@@ -97,10 +129,10 @@ class LaporanController extends Controller
                 $solusiIdeal = self::solusiIdealPositifDanNegatif($kriteria->id_kriteria);
                 $solusiIdealMin = $solusiIdeal['min'];
                 $solusiIdealMax = $solusiIdeal['max'];
-                if ($key1 < count($dataNilaiTerbobot)) {
+                // if ($key1 < count($dataNilaiTerbobot)) {
                     $resultMin[$key1] += pow($solusiIdealMin - $dataNilaiTerbobot[$key1], 2);
                     $resultMax[$key1] += pow($solusiIdealMax - $dataNilaiTerbobot[$key1], 2);
-                }
+                // }
             }
 
             $resultMin[$key1] =  sqrt($resultMin[$key1]);
@@ -123,10 +155,8 @@ class LaporanController extends Controller
 
         foreach ($users as $key => $pelamar) {
 
-            if ($key < (count($users) - 1)) {
-                $result[$key] = $jarakNilaiIdeal['resultMin'][$key] / ($jarakNilaiIdeal['resultMin'][$key] + $jarakNilaiIdeal['resultMax'][$key]);
-                $result[$key] = round($result[$key], 4);
-            }
+            $result[$key] = $jarakNilaiIdeal['resultMin'][$key] / ($jarakNilaiIdeal['resultMin'][$key] + $jarakNilaiIdeal['resultMax'][$key]);
+            $result[$key] = round($result[$key], 4);
 
         }
         return $result;

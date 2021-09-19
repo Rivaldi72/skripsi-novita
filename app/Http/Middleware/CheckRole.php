@@ -18,7 +18,7 @@ class CheckRole
         if (in_array($request->user()->jabatan, $roles)) {
             return $next($request);
         };
-        dd($roles);
+        // dd($roles);
 
         return redirect('/dashboard');
     }

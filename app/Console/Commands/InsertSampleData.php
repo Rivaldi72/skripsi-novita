@@ -120,6 +120,8 @@ class InsertSampleData extends Command
         $user->save();
 
         // Sample Nilai
+        $seleksi = new \App\Model\Seleksi;
+        $seleksi->truncate();
         // User 1
         $seleksi = new \App\Model\Seleksi;
         $seleksi->id_user = 3;
