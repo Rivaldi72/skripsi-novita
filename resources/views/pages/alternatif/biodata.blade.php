@@ -19,7 +19,7 @@
     <script>
         var picker = $('.tanggal_lahir').pickadate({
             onStart: function() {
-                var date = new Date('{{ $biodata->tanggal_lahir }}');
+                var date = new Date('{{ $biodata->tanggal_lahir ?? \Carbon\Carbon::now()}}');
                 console.log(this)
                 this.set('select',  date );
             },
@@ -242,9 +242,9 @@
                                         <fieldset class="form-group">
                                             <label for="basicInput">Jenis Kelamin</label>
                                             <select class="custom-select" name="jenis_kelamin" id="customSelect">
-                                                <option {{ $biodata->jenis_kelamin == null ? 'selected' : "" }} value="">Pilih jenis kelamin</option>
-                                                <option {{ $biodata->jenis_kelamin == "L"  ? 'selected' : "" }} value="L">Laki-laki</option>
-                                                <option {{ $biodata->jenis_kelamin == "P"  ? 'selected' : "" }} value="P">Perempuan</option>
+                                                <option {{ $biodata->jenis_kelamin ?? '' == null ? 'selected' : "" }} value="">Pilih jenis kelamin</option>
+                                                <option {{ $biodata->jenis_kelamin ?? '' == "L"  ? 'selected' : "" }} value="L">Laki-laki</option>
+                                                <option {{ $biodata->jenis_kelamin ?? '' == "P"  ? 'selected' : "" }} value="P">Perempuan</option>
                                             </select>
                                         </fieldset>
                                     </div>
@@ -252,10 +252,10 @@
                                         <fieldset class="form-group">
                                             <label for="basicInput">Status</label>
                                             <select class="custom-select" name="status" id="customSelect">
-                                                <option {{ $biodata->status == null ? 'selected' : "" }}>Pilih status</option>
-                                                <option {{ $biodata->status == "Belum Menikah"  ? 'selected' : "" }} value="Belum Menikah">Belum Menikah</option>
-                                                <option {{ $biodata->status == "Menikah"  ? 'selected' : "" }} value="Menikah">Menikah</option>
-                                                <option {{ $biodata->status == "Janda / Duda"  ? 'selected' : "" }} value="Janda / Duda">Janda / Duda</option>
+                                                <option {{ $biodata->status ?? '' == null ? 'selected' : "" }}>Pilih status</option>
+                                                <option {{ $biodata->status ?? '' == "Belum Menikah"  ? 'selected' : "" }} value="Belum Menikah">Belum Menikah</option>
+                                                <option {{ $biodata->status ?? '' == "Menikah"  ? 'selected' : "" }} value="Menikah">Menikah</option>
+                                                <option {{ $biodata->status ?? '' == "Janda / Duda"  ? 'selected' : "" }} value="Janda / Duda">Janda / Duda</option>
                                             </select>
                                         </fieldset>
                                     </div>
@@ -269,14 +269,14 @@
                                         <fieldset class="form-group">
                                             <label for="basicInput">Pendidikan Terakhir</label>
                                             <select class="custom-select" name="pendidikan_terakhir" id="customSelect">
-                                                <option {{ $biodata->pendidikan_terakhir == null ? 'selected' : "" }} >Pilih pendidikan terakhir</option>
-                                                <option {{ $biodata->pendidikan_terakhir == "SD"  ? 'selected' : "" }} value="SD">Sekolah Dasar (Setara)</option>
-                                                <option {{ $biodata->pendidikan_terakhir == "SMP"  ? 'selected' : "" }} value="SMP">Sekolah Menengah Pertama (Setara)</option>
-                                                <option {{ $biodata->pendidikan_terakhir == "SMA"  ? 'selected' : "" }} value="SMA">Sekolah Menengah Atas / Kejuruan (Setara)</option>
-                                                <option {{ $biodata->pendidikan_terakhir == "D3"  ? 'selected' : "" }} value="D3">Diploma-3 (Setara)</option>
-                                                <option {{ $biodata->pendidikan_terakhir == "S1"  ? 'selected' : "" }} value="S1">Strata-1 (Setara)</option>
-                                                <option {{ $biodata->pendidikan_terakhir == "S2"  ? 'selected' : "" }} value="S2">Strata-2 (Setara)</option>
-                                                <option {{ $biodata->pendidikan_terakhir == "S3"  ? 'selected' : "" }} value="S3">Strata-3 (Setara)</option>
+                                                <option {{ $biodata->pendidikan_terakhir ?? '' == null ? 'selected' : "" }} >Pilih pendidikan terakhir</option>
+                                                <option {{ $biodata->pendidikan_terakhir ?? '' == "SD"  ? 'selected' : "" }} value="SD">Sekolah Dasar (Setara)</option>
+                                                <option {{ $biodata->pendidikan_terakhir ?? '' == "SMP"  ? 'selected' : "" }} value="SMP">Sekolah Menengah Pertama (Setara)</option>
+                                                <option {{ $biodata->pendidikan_terakhir ?? '' == "SMA"  ? 'selected' : "" }} value="SMA">Sekolah Menengah Atas / Kejuruan (Setara)</option>
+                                                <option {{ $biodata->pendidikan_terakhir ?? '' == "D3"  ? 'selected' : "" }} value="D3">Diploma-3 (Setara)</option>
+                                                <option {{ $biodata->pendidikan_terakhir ?? '' == "S1"  ? 'selected' : "" }} value="S1">Strata-1 (Setara)</option>
+                                                <option {{ $biodata->pendidikan_terakhir ?? '' == "S2"  ? 'selected' : "" }} value="S2">Strata-2 (Setara)</option>
+                                                <option {{ $biodata->pendidikan_terakhir ?? '' == "S3"  ? 'selected' : "" }} value="S3">Strata-3 (Setara)</option>
                                             </select>
                                         </fieldset>
                                     </div>
@@ -443,7 +443,13 @@
 
                                     <div class="col-2">
                                         <label for="basicInputFile">KTP</label>
-                                        <img src="{{ Storage::disk('user_file')->exists($biodata->ktp) ? asset('storage/user-file/'.$biodata->ktp) : url('user-image/no-image.png') }}" class="img-fluid mb-1 rounded-sm" data-toggle="modal" data-target="#ktp-modal" alt="" style="width: 100%; height: 70%; object-fit: cover; cursor: pointer">
+                                        @if ($biodata != null)
+                                            <img src="{{ Storage::disk('user_file')->exists($biodata->ktp) ? asset('storage/user-file/'.$biodata->ktp) : url('user-image/no-image.png') }}" class="img-fluid mb-1 rounded-sm" data-toggle="modal" data-target="#ktp-modal" alt="" style="width: 100%; height: 70%; object-fit: cover; cursor: pointer">
+                                        @else
+                                            <img src="{{ url('user-image/no-image.png') }}" class="img-fluid mb-1 rounded-sm" data-toggle="modal" data-target="#ktp-modal" alt="" style="width: 100%; height: 70%; object-fit: cover; cursor: pointer">
+                                        @endif
+
+                                        
                                         <div class="row">
                                             <div class="col-12">
                                                 <fieldset class="form-group">
@@ -458,7 +464,11 @@
                                     </div>
                                     <div class="col-2">
                                         <label for="basicInputFile">Pas Foto</label>
-                                        <img src="{{ Storage::disk('user_file')->exists($biodata->pas_poto) ? asset('storage/user-file/'.$biodata->pas_poto) : url('user-image/no-image.png') }}" class="img-fluid mb-1 rounded-sm" data-toggle="modal" data-target="#pas-foto-modal" alt="" style="width: 100%; height: 70%; object-fit: cover; cursor: pointer">
+                                        @if ($biodata != null)
+                                            <img src="{{ Storage::disk('user_file')->exists($biodata->pas_poto) ? asset('storage/user-file/'.$biodata->pas_poto) : url('user-image/no-image.png') }}" class="img-fluid mb-1 rounded-sm" data-toggle="modal" data-target="#pas-foto-modal" alt="" style="width: 100%; height: 70%; object-fit: cover; cursor: pointer">
+                                        @else
+                                            <img src="{{ url('user-image/no-image.png') }}" class="img-fluid mb-1 rounded-sm" data-toggle="modal" data-target="#pas-foto-modal" alt="" style="width: 100%; height: 70%; object-fit: cover; cursor: pointer">
+                                        @endif
                                         <div class="row">
                                             <div class="col-12">
                                                 <fieldset class="form-group">
@@ -473,7 +483,11 @@
                                     </div>
                                     <div class="col-2">
                                         <label for="basicInputFile">Ijazah</label>
-                                        <img src="{{ Storage::disk('user_file')->exists($biodata->ijazah) ? asset('storage/user-file/'.$biodata->ijazah) : url('user-image/no-image.png') }}" class="img-fluid mb-1 rounded-sm" data-toggle="modal" data-target="#ijazah-modal" alt="" style="width: 100%; height: 70%; object-fit: cover; cursor: pointer">
+                                        @if ($biodata != null)
+                                            <img src="{{ Storage::disk('user_file')->exists($biodata->ijazah) ? asset('storage/user-file/'.$biodata->ijazah) : url('user-image/no-image.png') }}" class="img-fluid mb-1 rounded-sm" data-toggle="modal" data-target="#ijazah-modal" alt="" style="width: 100%; height: 70%; object-fit: cover; cursor: pointer">
+                                        @else
+                                            <img src="{{ url('user-image/no-image.png') }}" class="img-fluid mb-1 rounded-sm" data-toggle="modal" data-target="#ijazah-modal" alt="" style="width: 100%; height: 70%; object-fit: cover; cursor: pointer">
+                                        @endif
                                         <div class="row">
                                             <div class="col-12">
                                                 <fieldset class="form-group">
@@ -488,7 +502,11 @@
                                     </div>
                                     <div class="col-2">
                                         <label for="basicInputFile">Transkrip Nilai</label>
-                                        <img src="{{ Storage::disk('user_file')->exists($biodata->transkrip_nilai) ? asset('storage/user-file/'.$biodata->transkrip_nilai) : url('user-image/no-image.png') }}" class="img-fluid mb-1 rounded-sm" data-toggle="modal" data-target="#nilai-modal" alt="" style="width: 100%; height: 70%; object-fit: cover; cursor: pointer">
+                                        @if ($biodata != null)
+                                            <img src="{{ Storage::disk('user_file')->exists($biodata->transkrip_nilai) ? asset('storage/user-file/'.$biodata->transkrip_nilai) : url('user-image/no-image.png') }}" class="img-fluid mb-1 rounded-sm" data-toggle="modal" data-target="#nilai-modal" alt="" style="width: 100%; height: 70%; object-fit: cover; cursor: pointer">
+                                        @else
+                                            <img src="{{ url('user-image/no-image.png') }}" class="img-fluid mb-1 rounded-sm" data-toggle="modal" data-target="#nilai-modal" alt="" style="width: 100%; height: 70%; object-fit: cover; cursor: pointer">
+                                        @endif
                                         <div class="row">
                                             <div class="col-12">
                                                 <fieldset class="form-group">
@@ -503,7 +521,11 @@
                                     </div>
                                     <div class="col-2">
                                         <label for="basicInputFile">Portofolio</label>
-                                        <img src="{{ Storage::disk('user_file')->exists($biodata->portofolio) ? asset('storage/user-file/'.$biodata->portofolio) : url('user-image/no-image.png') }}" class="img-fluid mb-1 rounded-sm" data-toggle="modal" data-target="#portofolio-modal" alt="" style="width: 100%; height: 70%; object-fit: cover; cursor: pointer">
+                                        @if ($biodata != null)
+                                            <img src="{{ Storage::disk('user_file')->exists($biodata->portofolio) ? asset('storage/user-file/'.$biodata->portofolio) : url('user-image/no-image.png') }}" class="img-fluid mb-1 rounded-sm" data-toggle="modal" data-target="#portofolio-modal" alt="" style="width: 100%; height: 70%; object-fit: cover; cursor: pointer">
+                                        @else
+                                            <img src="{{ url('user-image/no-image.png') }}" class="img-fluid mb-1 rounded-sm" data-toggle="modal" data-target="#portofolio-modal" alt="" style="width: 100%; height: 70%; object-fit: cover; cursor: pointer">
+                                        @endif
                                         <div class="row">
                                             <div class="col-12">
                                                 <fieldset class="form-group">
@@ -527,7 +549,11 @@
                                                     </button>
                                                 </div>
                                                 <div class="modal-body">
+                                                @if ($biodata != null)
                                                     <img src="{{ Storage::disk('user_file')->exists($biodata->ktp) ? asset('storage/user-file/'.$biodata->ktp) : url('user-image/no-image.png') }}" class="img-fluid mb-1 rounded-sm" style="width: 100%; height: 95%; object-fit: cover;">
+                                                @else
+                                                    <img src="{{ url('user-image/no-image.png') }}" class="img-fluid mb-1 rounded-sm" style="width: 100%; height: 95%; object-fit: cover;">
+                                                @endif
                                                 </div>
                                                 <div class="modal-footer">
                                                     <button type="button" class="btn btn-warning waves-effect waves-light" data-dismiss="modal">Tutup</button>
@@ -546,7 +572,11 @@
                                                     </button>
                                                 </div>
                                                 <div class="modal-body">
+                                                @if ($biodata != null)
                                                     <img src="{{ Storage::disk('user_file')->exists($biodata->pas_poto) ? asset('storage/user-file/'.$biodata->pas_poto) : url('user-image/no-image.png') }}" class="img-fluid mb-1 rounded-sm" style="width: 100%; height: 95%; object-fit: cover;">
+                                                @else
+                                                    <img src="{{ url('user-image/no-image.png') }}" class="img-fluid mb-1 rounded-sm" style="width: 100%; height: 95%; object-fit: cover;">
+                                                @endif
                                                 </div>
                                                 <div class="modal-footer">
                                                     <button type="button" class="btn btn-warning waves-effect waves-light" data-dismiss="modal">Tutup</button>
@@ -565,7 +595,11 @@
                                                     </button>
                                                 </div>
                                                 <div class="modal-body">
+                                                @if ($biodata != null)
                                                     <img src="{{ Storage::disk('user_file')->exists($biodata->ijazah) ? asset('storage/user-file/'.$biodata->ijazah) : url('user-image/no-image.png') }}" class="img-fluid mb-1 rounded-sm" style="width: 100%; height: 95%; object-fit: cover;">
+                                                @else
+                                                    <img src="{{ url('user-image/no-image.png') }}" class="img-fluid mb-1 rounded-sm" style="width: 100%; height: 95%; object-fit: cover;">
+                                                @endif
                                                 </div>
                                                 <div class="modal-footer">
                                                     <button type="button" class="btn btn-warning waves-effect waves-light" data-dismiss="modal">Tutup</button>
@@ -584,7 +618,11 @@
                                                     </button>
                                                 </div>
                                                 <div class="modal-body">
+                                                @if ($biodata != null)
                                                     <img src="{{ Storage::disk('user_file')->exists($biodata->transkrip_nilai) ? asset('storage/user-file/'.$biodata->transkrip_nilai) : url('user-image/no-image.png') }}" class="img-fluid mb-1 rounded-sm" style="width: 100%; height: 95%; object-fit: cover;">
+                                                @else
+                                                    <img src="{{ url('user-image/no-image.png') }}" class="img-fluid mb-1 rounded-sm" style="width: 100%; height: 95%; object-fit: cover;">
+                                                @endif
                                                 </div>
                                                 <div class="modal-footer">
                                                     <button type="button" class="btn btn-warning waves-effect waves-light" data-dismiss="modal">Tutup</button>
@@ -603,7 +641,11 @@
                                                     </button>
                                                 </div>
                                                 <div class="modal-body">
+                                                @if ($biodata != null)
                                                     <img src="{{ Storage::disk('user_file')->exists($biodata->portofolio) ? asset('storage/user-file/'.$biodata->portofolio) : url('user-image/no-image.png') }}" class="img-fluid mb-1 rounded-sm" style="width: 100%; height: 95%; object-fit: cover;">
+                                                @else
+                                                    <img src="{{ url('user-image/no-image.png') }}" class="img-fluid mb-1 rounded-sm" style="width: 100%; height: 95%; object-fit: cover;">
+                                                @endif
                                                 </div>
                                                 <div class="modal-footer">
                                                     <button type="button" class="btn btn-warning waves-effect waves-light" data-dismiss="modal">Tutup</button>
