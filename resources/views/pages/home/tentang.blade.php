@@ -31,7 +31,7 @@
             <div class="col-4">
                 <h2 class="content-header-title mb-0 mt-2">SEJARAH</h2>
                 <h6 class="content-header-title mb-0 mt-2">Ma’had Abu Ubaidah bin Al-Jarrah adalah Lembaga Pendidikan Bahasa Arab dan Studi Islam yang berdiri Sejak Tahun 2005 dibawah supervisi Yayasan Muslim Asia (AMCF) di Kota Medan, yang telah melahirkan ribuan Da’i di yang tersebar Seluruh indonesia. Ma’had Abu Ubaidah memiliki berbagai program pendidikan yang bersinergi dengan berbagai Organisasi, salah satunya program Integrasi I’dad Lughawi dengan Pendidikan Agama Islam pada Fakultas Agama Islam Universitas Muhammadiyah Sumatera Utara (UMSU).
-                 Mulai Tahun Ajaran 2017 setiap mahasiswa Program I’dad Lughawi (Bahasa Arab & Studi Islam) dapat sekaligus mengikuti program S1 di Fakultas Agama Islam Universitas Muhammadiyah Sumatera Utara.
+                Mulai Tahun Ajaran 2017 setiap mahasiswa Program I’dad Lughawi (Bahasa Arab & Studi Islam) dapat sekaligus mengikuti program S1 di Fakultas Agama Islam Universitas Muhammadiyah Sumatera Utara.
                 Selain program I’dad dan Program Integerasi S1, Ma’had Abu Ubaidah juga menjalankan program Tahfizh dan Tahsin tilawah alquran.</h6>
             </div>
             <div class="col-4">

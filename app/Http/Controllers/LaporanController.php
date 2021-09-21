@@ -12,6 +12,20 @@ class LaporanController extends Controller
 {
     public function index()
     {
+        $dataUser = User::where('jabatan', 'pelamar')->get();
+        $dataNilaiAwal = self::nilaiPreferensi();
+        $dataNilai = self::nilaiPreferensi();
+        arsort($dataNilai);
+        $dataNilaiSort = [];
+        $i = 0;
+
+        foreach ($dataNilai as $key => $value) {
+            $dataNilaiSort[$i] = $value;
+            $i++;
+        }
+        // dd( $dataNilaiSort);
+        $dataPeringkat = [];
+
         // dd([
         //     'maktriksKeputusanTernormalisasi1' => self::maktriksKeputusanTernormalisasi(1),
         //     'maktriksKeputusanTernormalisasi2' => self::maktriksKeputusanTernormalisasi(2),
@@ -42,22 +56,9 @@ class LaporanController extends Controller
         //     'solusiIdealPositifDanNegatif6' => self::solusiIdealPositifDanNegatif(6),
         //     'solusiIdealPositifDanNegatif7' => self::solusiIdealPositifDanNegatif(7),
         //     'jarakNilaiIdeal' => self::jarakNilaiIdeal(),
-        //     'nilaiPreferensi' => self::nilaiPreferensi(),
+        //     'nilaiPreferensiAwal' => self::nilaiPreferensi(),
+        //     'nilaiPreferensi' => $dataNilaiSort,
         // ]);
-
-        $dataUser = User::where('jabatan', 'pelamar')->get();
-        $dataNilaiAwal = self::nilaiPreferensi();
-        $dataNilai = self::nilaiPreferensi();
-        arsort($dataNilai);
-        $dataNilaiSort = [];
-        $i = 0;
-
-        foreach ($dataNilai as $key => $value) {
-            $dataNilaiSort[$i] = $value;
-            $i++;
-        }
-        // dd( $dataNilaiSort);
-        $dataPeringkat = [];
 
         return view('pages.laporan.index', compact('dataUser', 'dataNilaiAwal', 'dataNilai', 'dataNilaiSort'));
     }

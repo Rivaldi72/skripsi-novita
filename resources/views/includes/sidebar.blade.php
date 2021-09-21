@@ -39,37 +39,6 @@
                 <li class="nav-item mb-1 {{ (request()->is('laporan')) ? 'active' : '' }}"><a href="{{ route('laporan-index') }}"><i class="feather icon-file-text"></i><span class="menu-title">Laporan</span></a>
                 </li>
             @endif
-
-            {{-- @if(auth()->user()->role == 'pic' || auth()->user()->role == 'mr' || auth()->user()->role == 'pp')
-                <li class=" nav-item {{ (request()->is('permintaan*')) ? 'active' : '' }}"><a href="/permintaan"><i class="feather icon-file-text"></i><span class="menu-title">Permintaan</span></a>
-                </li>
-                <li class=" nav-item {{ (request()->is('pengembalian*')) ? 'active' : '' }}"><a href="/pengembalian"><i class="feather icon-external-link"></i><span class="menu-title">Pengembalian</span></a>
-                </li>
-                <li class=" nav-item {{ (request()->is('laporan*')) ? 'active' : '' }} mb-1"><a href="/laporan"><i class="feather icon-file-minus"></i><span class="menu-title">Laporan Rekap</span></a>
-                </li>
-            @endif
-            @if(auth()->user()->role == 'spg')
-                <li class=" nav-item {{ (request()->is('mr-spg')) ? 'active' : '' }}"><a href="/input-pengajuan"><i class="feather icon-user"></i><span class="menu-title">Input Pengajuan</span></a>
-                </li>
-                <li class=" nav-item {{ (request()->is('permintaan*')) ? 'active' : '' }}"><a href="/permintaan"><i class="feather icon-file-text"></i><span class="menu-title">Permintaan</span></a>
-                </li>
-                <li class=" nav-item {{ (request()->is('pengembalian*')) ? 'active' : '' }}"><a href="/pengembalian"><i class="feather icon-external-link"></i><span class="menu-title">Pengembalian</span></a>
-                </li>
-                <li class=" nav-item {{ (request()->is('laporan*')) ? 'active' : '' }} mb-1"><a href="/laporan"><i class="feather icon-file-minus"></i><span class="menu-title">Laporan Rekap</span></a>
-                </li>
-            @endif
-            @if(auth()->user()->role == 'admin')
-                <li class=" nav-item {{ (request()->is('master')) ? 'active' : '' }}"><a href="/master"><i class="feather icon-package"></i><span class="menu-title">Master Barang</span></a>
-                </li>
-                <li class=" nav-item {{ (request()->is('mr-spg')) ? 'active' : '' }}"><a href="/mr-spg"><i class="feather icon-user"></i><span class="menu-title">User</span></a>
-                </li>
-                <li class=" nav-item {{ (request()->is('permintaan*')) ? 'active' : '' }}"><a href="/permintaan"><i class="feather icon-file-text"></i><span class="menu-title">Permintaan</span></a>
-                </li>
-                <li class=" nav-item {{ (request()->is('pengembalian*')) ? 'active' : '' }}"><a href="/pengembalian"><i class="feather icon-external-link"></i><span class="menu-title">Pengembalian</span></a>
-                </li>
-                <li class=" nav-item {{ (request()->is('laporan*')) ? 'active' : '' }} mb-1"><a href="/laporan"><i class="feather icon-file-minus"></i><span class="menu-title">Laporan Rekap</span></a>
-                </li>
-            @endif --}}
         </ul>
     </div>
 </div>
