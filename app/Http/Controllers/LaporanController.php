@@ -4,12 +4,13 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Model\User;
-use App\Model\Seleksi;
-use App\Model\Kriteria;
 use Auth;
+use App\Traits\TopsisTrait;
 
 class LaporanController extends Controller
 {
+    use TopsisTrait;
+    
     public function index()
     {
         $dataUser = User::where('jabatan', 'pelamar')->get();

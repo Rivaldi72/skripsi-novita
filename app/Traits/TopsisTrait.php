@@ -4,8 +4,9 @@ namespace App\Traits;
 
 use App\Model\Seleksi;
 use App\Model\Kriteria;
+use App\Model\User;
 
-class TopsisTrait
+trait TopsisTrait
 {
 
     public function maktriksKeputusanTernormalisasi($id_kriteria)
