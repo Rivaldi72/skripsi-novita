@@ -22,13 +22,13 @@
             @if( auth()->user()->jabatan == 'admin')
                 <li class="nav-item {{ (request()->is('kriteria*')) ? 'active' : '' }}"><a href="{{ route('kriteria-index') }}"><i class="feather icon-file-text"></i><span class="menu-title">Data Kriteria</span></a>
                 </li>
-                <li class="nav-item {{ (request()->is('alternatif*')) ? 'active' : '' }}"><a href="{{ route('alternatif-index') }}"><i class="feather icon-users"></i><span class="menu-title">Data Alternatif</span></a>
+                <li class="nav-item {{ (request()->is('alternatif*')) ? 'active' : '' }}"><a href="{{ route('alternatif-index') }}"><i class="feather icon-users"></i><span class="menu-title">Data Pelamar</span></a>
                 </li>
                 <li class="nav-item {{ (request()->is('seleksi')) ? 'active' : '' }}"><a href="{{ route('seleksi-index') }}"><i class="feather icon-file-text"></i><span class="menu-title">Perhitungan Dan Seleksi</span></a>
                 </li>
             @endif
             @if(auth()->user()->jabatan == 'pelamar')
-                <li class="nav-item {{ (request()->is('alternatif-biodata*')) ? 'active' : '' }}"><a href="{{ route('alternatif-biodata') }}"><i class="feather icon-user"></i><span class="menu-title">Biodata</span></a>
+                <li class="nav-item {{ (request()->is('alternatif-biodata*')) ? 'active' : '' }}"><a href="{{ route('alternatif-biodata') }}"><i class="feather icon-user"></i><span class="menu-title">Data Pelamar</span></a>
                 </li>
             @endif
             @if(auth()->user()->jabatan == 'pelamar' || auth()->user()->jabatan == 'admin')

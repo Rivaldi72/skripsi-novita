@@ -42,7 +42,7 @@
             if(perusahaan == '' || jabatan == '' || lamaKerja == '') {
                 return alert('Isi semua data terlebih dahulu')
             }
-            
+
             indexItemPengalamanKerja = indexItemPengalamanKerja + 1;
             idItem = 'pengalamanKerja' + indexItemPengalamanKerja;
 
@@ -80,7 +80,7 @@
             if(bahasa == '' || read == '' || write == '' || speak == '') {
                 return alert('Isi semua data terlebih dahulu')
             }
-            
+
             indexKemampuanBahasaAsing = indexKemampuanBahasaAsing + 1;
             idItem = 'kemampuanBahasaAsing' + indexKemampuanBahasaAsing;
 
@@ -161,7 +161,7 @@
 @endsection
 
 @section('title')
-    Alternatif
+    Data Pelamar
 @endsection
 
 @section('content')
@@ -449,7 +449,7 @@
                                             <img src="{{ url('user-image/no-image.png') }}" class="img-fluid mb-1 rounded-sm" data-toggle="modal" data-target="#ktp-modal" alt="" style="width: 100%; height: 70%; object-fit: cover; cursor: pointer">
                                         @endif
 
-                                        
+
                                         <div class="row">
                                             <div class="col-12">
                                                 <fieldset class="form-group">
@@ -538,7 +538,7 @@
                                             </div>
                                         </div>
                                     </div>
-    
+
                                     <div class="modal fade text-left show" id="ktp-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel1" aria-modal="true">
                                         <div class="modal-dialog modal-dialog-scrollable" role="document">
                                             <div class="modal-content">
@@ -561,7 +561,7 @@
                                             </div>
                                         </div>
                                     </div>
-    
+
                                     <div class="modal fade text-left show" id="pas-foto-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel1" aria-modal="true">
                                         <div class="modal-dialog modal-dialog-scrollable" role="document">
                                             <div class="modal-content">
@@ -584,7 +584,7 @@
                                             </div>
                                         </div>
                                     </div>
-    
+
                                     <div class="modal fade text-left show" id="ijazah-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel1" aria-modal="true">
                                         <div class="modal-dialog modal-dialog-scrollable" role="document">
                                             <div class="modal-content">
@@ -607,7 +607,7 @@
                                             </div>
                                         </div>
                                     </div>
-    
+
                                     <div class="modal fade text-left show" id="nilai-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel1" aria-modal="true">
                                         <div class="modal-dialog modal-dialog-scrollable" role="document">
                                             <div class="modal-content">
@@ -630,7 +630,7 @@
                                             </div>
                                         </div>
                                     </div>
-    
+
                                     <div class="modal fade text-left show" id="portofolio-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel1" aria-modal="true">
                                         <div class="modal-dialog modal-dialog-scrollable" role="document">
                                             <div class="modal-content">
