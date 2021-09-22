@@ -18,31 +18,25 @@ class AlternatifController extends Controller
     public function index()
     {
         $dataAlternatif = User::where('jabatan', 'pelamar')->get();
-        // dd($dataAlternatif->toArray());
         return view('pages.alternatif.index', compact('dataAlternatif'));
     }
 
     public function detail($id)
     {
         $biodata = Biodata::where('id_user', $id)->with(['pengalamanKerja', 'kemampuanBahasaAsing'])->first();
-        // dd($biodata->toArray());
         return view('pages.alternatif.detail', compact('biodata'));
     }
 
     public function biodata()
     {
         $biodata = Biodata::where('id_user', Auth::user()->id_user)->with(['pengalamanKerja', 'kemampuanBahasaAsing'])->first();
-        // dd($biodata->toArray());
         return view('pages.alternatif.biodata', compact('biodata'));
     }
 
     public function biodataStore(BiodataRequest $request)
     {
-        // dd(json_decode($request->pengalaman_kerja));
         $pengalamanKerja = json_decode($request->pengalaman_kerja);
         $kemampuanBahasaAsing = json_decode($request->kemampuan_bahasa_asing);
-        // dd($pengalamanKerja, $kemampuanBahasaAsing);
-        // dd($kemampuanBahasaAsing);
 
         $birtDate = $request->tanggal_lahir;
         $formatedBirtDate = Carbon::parse($birtDate)->format('Y-m-d');
@@ -91,12 +85,8 @@ class AlternatifController extends Controller
             ]
         );
 
-        // dd($pengalamanKerja[0]->perusahaan);
-        // dd($pengalamanKerja);
-
         if ($pengalamanKerja !== null) {
             foreach ($pengalamanKerja as $dataItemPengalamanKerja) {
-                // dd($dataItemPengalamanKerja->perusahaan);
                 PengalamanKerja::updateOrCreate(
                     [
                         'id_user' => Auth::user()->id_user,
@@ -127,7 +117,6 @@ class AlternatifController extends Controller
 
     public function biodataNilai()
     {
-        // $biodata = Biodata::where('id_user', 3)->with(['pengalamanKerja', 'kemampuanBahasaAsing'])->first();
         $biodata = Biodata::where('id_user', Auth::user()->id_user)->with(['pengalamanKerja', 'kemampuanBahasaAsing'])->first();
 
         // Mengambil Detail Umur
@@ -191,13 +180,12 @@ class AlternatifController extends Controller
                 $nilaiPengalamanKerja = 0;
             }
 
-            // dd($umur, $nilaiUmur, $pendidikanTerakhir, $nilaiPendidikanTerakhir, $ipk, $nilaiIpk, $kemampuanBahasaAsing->toArray(), $nilaiKemampuanBahasaAsing, $pengalamanKerja, $nilaiPengalamanKerja, $kemampuanBahasaAsing, $biodata->toArray());
-
             Seleksi::updateOrCreate(
                 [
                     'id_user' => Auth::user()->id_user,
-                    // 'id_user' => 3,
                     'id_kriteria' => 1,
+                ],
+                [
                     'nilai' => $nilaiPendidikanTerakhir,
                 ]
             );
@@ -205,8 +193,9 @@ class AlternatifController extends Controller
             Seleksi::updateOrCreate(
                 [
                     'id_user' => Auth::user()->id_user,
-                    // 'id_user' => 3,
                     'id_kriteria' => 2,
+                ],
+                [
                     'nilai' => $nilaiUmur,
                 ]
             );
@@ -214,8 +203,9 @@ class AlternatifController extends Controller
             Seleksi::updateOrCreate(
                 [
                     'id_user' => Auth::user()->id_user,
-                    // 'id_user' => 3,
                     'id_kriteria' => 3,
+                ],
+                [
                     'nilai' => $nilaiIpk,
                 ]
             );
@@ -223,8 +213,9 @@ class AlternatifController extends Controller
             Seleksi::updateOrCreate(
                 [
                     'id_user' => Auth::user()->id_user,
-                    // 'id_user' => 3,
                     'id_kriteria' => 4,
+                ],
+                [
                     'nilai' => $nilaiKemampuanBahasaAsing,
                 ]
             );
@@ -232,12 +223,14 @@ class AlternatifController extends Controller
             Seleksi::updateOrCreate(
                 [
                     'id_user' => Auth::user()->id_user,
-                    // 'id_user' => 3,
                     'id_kriteria' => 6,
+                ],
+                [
                     'nilai' => $nilaiPengalamanKerja,
                 ]
             );
         }
+        // dd(Auth::user()->id_user, $umur, $nilaiUmur, $pendidikanTerakhir, $nilaiPendidikanTerakhir, $ipk, $nilaiIpk, $kemampuanBahasaAsing->toArray(), $nilaiKemampuanBahasaAsing, $pengalamanKerja, $nilaiPengalamanKerja, $biodata->toArray());
 
         return redirect()->route('alternatif-biodata');
     }

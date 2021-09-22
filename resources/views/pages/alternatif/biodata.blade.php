@@ -242,9 +242,15 @@
                                         <fieldset class="form-group">
                                             <label for="basicInput">Jenis Kelamin</label>
                                             <select class="custom-select" name="jenis_kelamin" id="customSelect">
-                                                <option {{ $biodata->jenis_kelamin ?? '' == null ? 'selected' : "" }} value="">Pilih jenis kelamin</option>
-                                                <option {{ $biodata->jenis_kelamin ?? '' == "L"  ? 'selected' : "" }} value="L">Laki-laki</option>
-                                                <option {{ $biodata->jenis_kelamin ?? '' == "P"  ? 'selected' : "" }} value="P">Perempuan</option>
+                                                @if ($biodata != null)
+                                                    <option {{ $biodata->jenis_kelamin == null ? 'selected' : "" }} value="">Pilih jenis kelamin</option>
+                                                    <option {{ $biodata->jenis_kelamin == "L"  ? 'selected' : "" }} value="L">Laki-laki</option>
+                                                    <option {{ $biodata->jenis_kelamin == "P"  ? 'selected' : "" }} value="P">Perempuan</option>
+                                                @else
+                                                    <option selected value="">Pilih jenis kelamin</option>
+                                                    <option value="L">Laki-laki</option>
+                                                    <option value="P">Perempuan</option>
+                                                @endif
                                             </select>
                                         </fieldset>
                                     </div>
@@ -252,10 +258,17 @@
                                         <fieldset class="form-group">
                                             <label for="basicInput">Status</label>
                                             <select class="custom-select" name="status" id="customSelect">
-                                                <option {{ $biodata->status ?? '' == null ? 'selected' : "" }}>Pilih status</option>
-                                                <option {{ $biodata->status ?? '' == "Belum Menikah"  ? 'selected' : "" }} value="Belum Menikah">Belum Menikah</option>
-                                                <option {{ $biodata->status ?? '' == "Menikah"  ? 'selected' : "" }} value="Menikah">Menikah</option>
-                                                <option {{ $biodata->status ?? '' == "Janda / Duda"  ? 'selected' : "" }} value="Janda / Duda">Janda / Duda</option>
+                                                @if ($biodata != null)
+                                                    <option {{ $biodata->status == null ? 'selected' : "" }}>Pilih status</option>
+                                                    <option {{ $biodata->status == "Belum Menikah"  ? 'selected' : "" }} value="Belum Menikah">Belum Menikah</option>
+                                                    <option {{ $biodata->status == "Menikah"  ? 'selected' : "" }} value="Menikah">Menikah</option>
+                                                    <option {{ $biodata->status == "Janda / Duda"  ? 'selected' : "" }} value="Janda / Duda">Janda / Duda</option>
+                                                @else
+                                                    <option selected>Pilih status</option>
+                                                    <option value="Belum Menikah">Belum Menikah</option>
+                                                    <option value="Menikah">Menikah</option>
+                                                    <option value="Janda / Duda">Janda / Duda</option>
+                                                @endif
                                             </select>
                                         </fieldset>
                                     </div>
@@ -269,14 +282,25 @@
                                         <fieldset class="form-group">
                                             <label for="basicInput">Pendidikan Terakhir</label>
                                             <select class="custom-select" name="pendidikan_terakhir" id="customSelect">
-                                                <option {{ $biodata->pendidikan_terakhir ?? '' == null ? 'selected' : "" }} >Pilih pendidikan terakhir</option>
-                                                <option {{ $biodata->pendidikan_terakhir ?? '' == "SD"  ? 'selected' : "" }} value="SD">Sekolah Dasar (Setara)</option>
-                                                <option {{ $biodata->pendidikan_terakhir ?? '' == "SMP"  ? 'selected' : "" }} value="SMP">Sekolah Menengah Pertama (Setara)</option>
-                                                <option {{ $biodata->pendidikan_terakhir ?? '' == "SMA"  ? 'selected' : "" }} value="SMA">Sekolah Menengah Atas / Kejuruan (Setara)</option>
-                                                <option {{ $biodata->pendidikan_terakhir ?? '' == "D3"  ? 'selected' : "" }} value="D3">Diploma-3 (Setara)</option>
-                                                <option {{ $biodata->pendidikan_terakhir ?? '' == "S1"  ? 'selected' : "" }} value="S1">Strata-1 (Setara)</option>
-                                                <option {{ $biodata->pendidikan_terakhir ?? '' == "S2"  ? 'selected' : "" }} value="S2">Strata-2 (Setara)</option>
-                                                <option {{ $biodata->pendidikan_terakhir ?? '' == "S3"  ? 'selected' : "" }} value="S3">Strata-3 (Setara)</option>
+                                                @if ($biodata != null)
+                                                    <option {{ $biodata->pendidikan_terakhir == null ? 'selected' : "" }} >Pilih pendidikan terakhir</option>
+                                                    <option {{ $biodata->pendidikan_terakhir == "SD"  ? 'selected' : "" }} value="SD">Sekolah Dasar (Setara)</option>
+                                                    <option {{ $biodata->pendidikan_terakhir == "SMP"  ? 'selected' : "" }} value="SMP">Sekolah Menengah Pertama (Setara)</option>
+                                                    <option {{ $biodata->pendidikan_terakhir == "SMA"  ? 'selected' : "" }} value="SMA">Sekolah Menengah Atas / Kejuruan (Setara)</option>
+                                                    <option {{ $biodata->pendidikan_terakhir == "D3"  ? 'selected' : "" }} value="D3">Diploma-3 (Setara)</option>
+                                                    <option {{ $biodata->pendidikan_terakhir == "S1"  ? 'selected' : "" }} value="S1">Strata-1 (Setara)</option>
+                                                    <option {{ $biodata->pendidikan_terakhir == "S2"  ? 'selected' : "" }} value="S2">Strata-2 (Setara)</option>
+                                                    <option {{ $biodata->pendidikan_terakhir == "S3"  ? 'selected' : "" }} value="S3">Strata-3 (Setara)</option>
+                                                @else
+                                                    <option selected>Pilih pendidikan terakhir</option>
+                                                    <option value="SD">Sekolah Dasar (Setara)</option>
+                                                    <option value="SMP">Sekolah Menengah Pertama (Setara)</option>
+                                                    <option value="SMA">Sekolah Menengah Atas / Kejuruan (Setara)</option>
+                                                    <option value="D3">Diploma-3 (Setara)</option>
+                                                    <option value="S1">Strata-1 (Setara)</option>
+                                                    <option value="S2">Strata-2 (Setara)</option>
+                                                    <option value="S3">Strata-3 (Setara)</option>
+                                                @endif
                                             </select>
                                         </fieldset>
                                     </div>
