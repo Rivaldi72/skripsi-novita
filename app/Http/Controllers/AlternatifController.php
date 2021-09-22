@@ -54,17 +54,17 @@ class AlternatifController extends Controller
             'portofolio' => null,
         ];
         $files = $request->file('file');
-        
+
         if ($files != null) {
             foreach ($files as $key => $data) {
                 $getFileExt = $data->getClientOriginalExtension();
-                $fileName =  $key.'-'.Str::uuid().'.'.$getFileExt;
+                $fileName =  $key . '-' . Str::uuid() . '.' . $getFileExt;
                 $data->storeAs('public/user-file', $fileName);
                 $dataFile[$key] = $fileName;
             }
         }
-        
-        
+
+
         $biodata = Biodata::where('id_user', Auth::user()->id_user)->first();
 
         $data = Biodata::updateOrCreate(
@@ -110,11 +110,13 @@ class AlternatifController extends Controller
 
         if ($kemampuanBahasaAsing !== null) {
             foreach ($kemampuanBahasaAsing as $dataKemampuanBahasaAsing) {
-                KemampuanBahasaAsing::updateOrCreate(['id_user' => Auth::user()->id_user,
-                    'bahasa' => $dataKemampuanBahasaAsing->bahasa,
-                    'read' => $dataKemampuanBahasaAsing->read,
-                    'write' => $dataKemampuanBahasaAsing->write,
-                    'speak' => $dataKemampuanBahasaAsing->speak,
+                KemampuanBahasaAsing::updateOrCreate(
+                    [
+                        'id_user' => Auth::user()->id_user,
+                        'bahasa' => $dataKemampuanBahasaAsing->bahasa,
+                        'read' => $dataKemampuanBahasaAsing->read,
+                        'write' => $dataKemampuanBahasaAsing->write,
+                        'speak' => $dataKemampuanBahasaAsing->speak,
                     ]
                 );
             };
@@ -130,7 +132,7 @@ class AlternatifController extends Controller
 
         // Mengambil Detail Umur
         // \Carbon\Carbon::parse($user->birth)->diff(\Carbon\Carbon::now())->format('%y Tahun, %m bulan dan %d hari');
-        
+
         if ($biodata != null) {
             $umur = \Carbon\Carbon::parse($biodata->tanggal_lahir)->diff(\Carbon\Carbon::now())->format('%y');
             $pendidikanTerakhir = $biodata->pendidikan_terakhir;
@@ -140,34 +142,34 @@ class AlternatifController extends Controller
 
             if ($umur >= 19 and $umur <= 24) {
                 $nilaiUmur = 5;
-            } elseif($umur >= 25 and $umur <= 30) {
+            } elseif ($umur >= 25 and $umur <= 30) {
                 $nilaiUmur = 4;
             } elseif ($umur >= 30 and $umur <= 35) {
                 $nilaiUmur = 3;
             } else {
                 $nilaiUmur = 0;
             }
-    
+
             if ($pendidikanTerakhir == 'S1' or $pendidikanTerakhir == 'S2' or $pendidikanTerakhir == 'S3') {
                 $nilaiPendidikanTerakhir = 5;
-            } elseif($pendidikanTerakhir == 'D3') {
+            } elseif ($pendidikanTerakhir == 'D3') {
                 $nilaiPendidikanTerakhir = 3;
             } elseif ($pendidikanTerakhir == 'SMA') {
                 $nilaiPendidikanTerakhir = 2;
             } else {
                 $nilaiPendidikanTerakhir = 0;
             }
-    
-            if ($ipk >= 3.60 and $ipk <= 4.00) {
+
+            if ($ipk >= 3.51 and $ipk <= 4.00) {
                 $nilaiIpk = 5;
-            } elseif($ipk >= 2.76 and $ipk <= 3.50) {
+            } elseif ($ipk >= 2.76 and $ipk <= 3.50) {
                 $nilaiIpk = 3;
             } elseif ($ipk >= 2.00 and $ipk <= 2.75) {
                 $nilaiIpk = 2;
             } else {
                 $nilaiIpk = 0;
             }
-    
+
             $nilaiKemampuanBahasaAsing = 0;
             if ($kemampuanBahasaAsing->count() != 0) {
                 foreach ($kemampuanBahasaAsing as $key => $value) {
@@ -180,17 +182,17 @@ class AlternatifController extends Controller
                     }
                 }
             }
-    
+
             if ($pengalamanKerja <= 12) {
                 $nilaiPengalamanKerja = 3;
-            } elseif($pengalamanKerja > 12) {
+            } elseif ($pengalamanKerja > 12) {
                 $nilaiPengalamanKerja = 4;
             } else {
                 $nilaiPengalamanKerja = 0;
             }
-    
+
             // dd($umur, $nilaiUmur, $pendidikanTerakhir, $nilaiPendidikanTerakhir, $ipk, $nilaiIpk, $kemampuanBahasaAsing->toArray(), $nilaiKemampuanBahasaAsing, $pengalamanKerja, $nilaiPengalamanKerja, $kemampuanBahasaAsing, $biodata->toArray());
-    
+
             Seleksi::updateOrCreate(
                 [
                     'id_user' => Auth::user()->id_user,
@@ -199,7 +201,7 @@ class AlternatifController extends Controller
                     'nilai' => $nilaiPendidikanTerakhir,
                 ]
             );
-    
+
             Seleksi::updateOrCreate(
                 [
                     'id_user' => Auth::user()->id_user,
@@ -208,7 +210,7 @@ class AlternatifController extends Controller
                     'nilai' => $nilaiUmur,
                 ]
             );
-    
+
             Seleksi::updateOrCreate(
                 [
                     'id_user' => Auth::user()->id_user,
@@ -217,7 +219,7 @@ class AlternatifController extends Controller
                     'nilai' => $nilaiIpk,
                 ]
             );
-    
+
             Seleksi::updateOrCreate(
                 [
                     'id_user' => Auth::user()->id_user,
@@ -226,7 +228,7 @@ class AlternatifController extends Controller
                     'nilai' => $nilaiKemampuanBahasaAsing,
                 ]
             );
-    
+
             Seleksi::updateOrCreate(
                 [
                     'id_user' => Auth::user()->id_user,
@@ -236,7 +238,7 @@ class AlternatifController extends Controller
                 ]
             );
         }
-        
+
         return redirect()->route('alternatif-biodata');
     }
 }

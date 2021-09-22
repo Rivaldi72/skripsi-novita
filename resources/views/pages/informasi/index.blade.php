@@ -54,10 +54,14 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr>
-                                                <td> 1 </td>
-                                                <td> Novita Pratiwi </td>
-                                            </tr>
+                                            @foreach ($result as $key => $value)
+                                               @if ($key < 5)
+                                                    <tr>
+                                                        <td> {{ $key + 1 }} </td>
+                                                        <td> {{ $value['nama'] }} </td>
+                                                    </tr>
+                                               @endif
+                                           @endforeach
                                         </tbody>
                                     </table>
                                 </div>
@@ -83,10 +87,14 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr>
-                                                <td> 1 </td>
-                                                <td> Novita Pratiwi </td>
-                                            </tr>
+                                           @foreach ($result as $key => $value)
+                                                @if ($key >= 5)
+                                                    <tr>
+                                                        <td> {{ $key + 1 }} </td>
+                                                        <td> {{ $value['nama'] }} </td>
+                                                    </tr>
+                                                @endif
+                                           @endforeach
                                         </tbody>
                                     </table>
                                 </div>
