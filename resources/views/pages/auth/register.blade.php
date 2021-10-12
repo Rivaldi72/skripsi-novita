@@ -54,7 +54,7 @@
                                             <form action="{{ route('registerLogic') }}" method="POST">
                                                 {{ csrf_field()}}
                                                 <fieldset class="form-label-group form-group position-relative has-icon-left">
-                                                    <input type="text" class="form-control" id="nama" name="nama" placeholder="Nama Pengguna" required>
+                                                    <input type="text" class="form-control" id="nama" name="nama" placeholder="Nama" required>
                                                     <div class="form-control-position">
                                                         <i class="feather icon-user"></i>
                                                     </div>
@@ -62,7 +62,7 @@
                                                 </fieldset>
 
                                                 <fieldset class="form-label-group form-group position-relative has-icon-left">
-                                                    <input type="text" class="form-control" id="username" name="username" placeholder="Nama Pengguna" required>
+                                                    <input type="text" class="form-control" id="username" name="username" placeholder="Username" required>
                                                     <div class="form-control-position">
                                                         <i class="feather icon-user"></i>
                                                     </div>
@@ -78,7 +78,7 @@
                                                 </fieldset>
 
                                                 <fieldset class="form-label-group position-relative has-icon-left">
-                                                    <input type="confirm-password" class="form-control" id="confirm-password" name="confirm-password" placeholder="Ulangi Kata Sandi" required>
+                                                    <input type="password" class="form-control" id="confirm-password" name="confirm-password" placeholder="Ulangi Kata Sandi" required>
                                                     <div class="form-control-position">
                                                         <i class="feather icon-lock"></i>
                                                     </div>

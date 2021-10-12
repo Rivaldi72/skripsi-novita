@@ -12,7 +12,7 @@ class InformasiController extends Controller
 
     public function index()
     {
-        $dataPelamar = User::where('jabatan', 'pelamar')->get();
+        $dataPelamar = User::where('jabatan', 'pelamar')->where('is_rated', true)->get();
         $dataNilai = self::nilaiPreferensi();
 
         $result = [];

@@ -39,8 +39,8 @@ class SeleksiController extends Controller
     public function inputNilaiStore(Request $request, $id)
     {
         $dataNilai = $request->all();
-        // dd($dataNilai);
-        
+        $user = User::find($id);
+
         if (isset($dataNilai['idWawancara'])) {
             Seleksi::updateOrCreate(
                 [
@@ -60,6 +60,10 @@ class SeleksiController extends Controller
                 ]
             );
         }
+
+        $user->is_rated = true;
+        $user->save();
+
         return redirect()->route('seleksi-input-nilai', $id);
     }
 }

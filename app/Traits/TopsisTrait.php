@@ -64,7 +64,7 @@ trait TopsisTrait
     public function jarakNilaiIdeal()
     {
         $dataKriteria = Kriteria::all();
-        $users = User::where('jabatan', 'pelamar')->get();
+        $users = User::where('jabatan', 'pelamar')->where('is_rated', true)->get();
         $resultMin[] = 0;
         $resultMax[] = 0;
 
@@ -76,10 +76,10 @@ trait TopsisTrait
                 $solusiIdeal = self::solusiIdealPositifDanNegatif($kriteria->id_kriteria);
                 $solusiIdealMin = $solusiIdeal['min'];
                 $solusiIdealMax = $solusiIdeal['max'];
-                // if ($key1 < count($dataNilaiTerbobot)) {
-                $resultMin[$key1] += pow($solusiIdealMin - $dataNilaiTerbobot[$key1], 2);
-                $resultMax[$key1] += pow($solusiIdealMax - $dataNilaiTerbobot[$key1], 2);
-                // }
+                if ($key1 < count($dataNilaiTerbobot)) {
+                    $resultMin[$key1] += pow($solusiIdealMin - $dataNilaiTerbobot[$key1], 2);
+                    $resultMax[$key1] += pow($solusiIdealMax - $dataNilaiTerbobot[$key1], 2);
+                }
             }
 
             $resultMin[$key1] =  sqrt($resultMin[$key1]);
@@ -96,7 +96,7 @@ trait TopsisTrait
 
     public function nilaiPreferensi()
     {
-        $users = User::where('jabatan', 'pelamar')->get();
+        $users = User::where('jabatan', 'pelamar')->where('is_rated', true)->get();
         $result[] = 0;
         $jarakNilaiIdeal = self::jarakNilaiIdeal();
 
